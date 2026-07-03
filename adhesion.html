@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adhésion — JCI Comé Excellence</title>
+  <meta name="description" content="Rejoignez JCI Comé Excellence ! Remplissez le formulaire d'adhésion et intégrez le réseau mondial de jeunes leaders entre 18 et 40 ans." />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/output.css" />
+  <style>
+    /* ─── Champs ─── */
+    .form-field {
+      display: block; width: 100%;
+      background: #fff;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: #334155;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none; -webkit-appearance: none;
+    }
+    .form-field::placeholder { color: #94A3B8; }
+    .form-field:focus { border-color: #1E96FC; box-shadow: 0 0 0 4px rgba(30,150,252,.1); }
+    .form-field.error { border-color: #EF4444; box-shadow: 0 0 0 4px rgba(239,68,68,.08); }
+    textarea.form-field { resize: vertical; min-height: 110px; }
+    select.form-field { cursor: pointer; }
+
+    /* ─── Label ─── */
+    .field-label {
+      display: block;
+      font-size: 0.8125rem; font-weight: 600;
+      color: #334155; margin-bottom: 5px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .field-req { color: #1E96FC; }
+
+    /* ─── Erreur inline ─── */
+    .field-error {
+      font-size: 0.72rem; color: #EF4444;
+      margin-top: 4px; display: none;
+      align-items: center; gap: 4px;
+    }
+    .field-error.show { display: flex; }
+
+    /* ─── Radio / Checkbox custom ─── */
+    .opt-group { display: flex; flex-direction: column; gap: 8px; }
+    .opt-row   { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .opt-row input[type="radio"],
+    .opt-row input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0;
+      accent-color: #1E96FC; cursor: pointer;
+    }
+    .opt-row span { font-size: 0.875rem; color: #475569; line-height: 1.4; }
+    .opt-other-input {
+      margin-top: 6px; margin-left: 28px;
+      font-size: 0.875rem;
+    }
+
+    /* ─── Étapes / stepper ─── */
+    .step { display: none; }
+    .step.active { display: block; animation: fadeIn .35s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+    .stepper-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-center: center;
+      font-size: 0.75rem; font-weight: 700;
+      transition: all .3s ease;
+      flex-shrink: 0;
+    }
+    .stepper-dot.done { background: #0F766E; color: #fff; }
+    .stepper-dot.active { background: #1E96FC; color: #fff; box-shadow: 0 0 0 4px rgba(30,150,252,.2); }
+    .stepper-dot.todo { background: #E2E8F0; color: #94A3B8; }
+    .stepper-line { flex: 1; height: 2px; background: #E2E8F0; transition: background .3s; }
+    .stepper-line.done { background: #0F766E; }
+
+    /* ─── Bouton submit ─── */
+    #adh-submit .btn-spinner { display:none; width:18px; height:18px; border:2.5px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; }
+    #adh-submit.loading .btn-text { opacity:0; }
+    #adh-submit.loading .btn-spinner { display:block; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* ─── Confirmation ─── */
+    #adh-success { display:none; animation: fadeIn .5s ease; }
+    #adh-success.show { display:flex; }
+
+    /* ─── Section conditionnelle ─── */
+    .cond-section { display:none; }
+    .cond-section.show { display:block; animation: fadeIn .3s ease; }
+
+    /* ─── Reveal ─── */
+    [data-reveal] { opacity:0; transform:translateY(16px); transition:opacity .5s ease,transform .5s ease; }
+    [data-reveal].visible { opacity:1; transform:none; }
+    [data-reveal][data-delay="1"] { transition-delay:.1s; }
+    [data-reveal][data-delay="2"] { transition-delay:.2s; }
+  </style>
+</head>
+<body class="font-body text-ardoise bg-fondclair antialiased">
+
+  <!-- ═══ HEADER ═══ -->
+  <header data-site-header data-scrolled="false"
+          class="fixed top-0 inset-x-0 z-50 bg-white border-b border-ardoise/10 transition-shadow duration-300 data-[scrolled=true]:shadow-md">
+    <div class="container-site flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+        <img src="assets/images/logo/logo-jci-come-optimized.png" alt="JCI Comé Excellence" class="h-12 w-auto" />
+      </a>
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Navigation principale">
+        <a href="index.html"          class="nav-link text-marine text-sm">Accueil</a>
+        <a href="a-propos.html"       class="nav-link text-marine text-sm">À propos</a>
+        <a href="bureau-membres.html" class="nav-link text-marine text-sm">Bureau &amp; membres</a>
+        <a href="projets.html"        class="nav-link text-marine text-sm">Projets</a>
+        <a href="evenements.html"     class="nav-link text-marine text-sm">Événements</a>
+        <a href="actualites.html"     class="nav-link text-marine text-sm">Actualités</a>
+        <a href="galerie.html"        class="nav-link text-marine text-sm">Galerie</a>
+        <a href="partenaires.html"    class="nav-link text-marine text-sm">Partenaires</a>
+        <a href="contact.html"        class="nav-link text-marine text-sm">Contact</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="adhesion.html" class="hidden lg:inline-flex btn-primary text-sm py-2 ring-2 ring-azur/30" aria-current="page">Adhérer</a>
+        <button type="button" data-menu-toggle aria-expanded="false" aria-controls="menu-mobile" aria-label="Ouvrir le menu"
+                class="lg:hidden relative inline-flex items-center justify-center w-11 h-11 rounded-lg text-marine hover:bg-fondclair">
+          <svg data-icon-open  width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="absolute"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg data-icon-close width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="absolute hidden"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MENU MOBILE -->
+  <div id="menu-mobile" data-menu-panel data-open="false"
+       class="fixed inset-0 z-40 bg-marine text-white transform transition-transform duration-300 data-[open=false]:-translate-y-full data-[open=true]:translate-y-0 lg:hidden flex flex-col">
+    <div class="h-20 flex-shrink-0"></div>
+    <nav class="flex-1 flex flex-col justify-center gap-1 container-site">
+      <a href="index.html"          class="text-2xl font-heading font-medium py-3 border-b border-white/10">Accueil</a>
+      <a href="a-propos.html"       class="text-2xl font-heading font-medium py-3 border-b border-white/10">À propos</a>
+      <a href="bureau-membres.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10">Bureau &amp; membres</a>
+      <a href="projets.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10">Projets</a>
+      <a href="evenements.html"     class="text-2xl font-heading font-medium py-3 border-b border-white/10">Événements</a>
+      <a href="actualites.html"     class="text-2xl font-heading font-medium py-3 border-b border-white/10">Actualités</a>
+      <a href="galerie.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10">Galerie</a>
+      <a href="partenaires.html"    class="text-2xl font-heading font-medium py-3 border-b border-white/10">Partenaires</a>
+      <a href="contact.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10">Contact</a>
+      <a href="adhesion.html" class="btn-primary mt-6 w-fit text-turquoise-light border-turquoise">Adhérer</a>
+    </nav>
+  </div>
+
+  <main id="contenu">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="pt-20 bg-marine relative overflow-hidden" aria-label="En-tête Adhésion">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg viewBox="0 0 1440 340" preserveAspectRatio="xMidYMid slice" class="w-full h-full opacity-[.06]">
+          <circle cx="1360" cy="80"  r="240" fill="none" stroke="#4FD1C5" stroke-width="1.5"/>
+          <circle cx="100"  cy="270" r="180" fill="none" stroke="#1E96FC" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="relative container-site py-14 sm:py-16">
+        <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 text-sm text-white/40 mb-7">
+          <a href="index.html" class="hover:text-white/70 transition-colors">Accueil</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+          <span class="text-turquoise font-medium">Adhésion</span>
+        </nav>
+
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <span class="inline-flex items-center gap-2 text-turquoise text-sm font-medium mb-4">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Recrutement de nouveaux membres
+            </span>
+            <h1 class="font-heading text-4xl sm:text-5xl font-bold text-white leading-[1.1] mb-5">
+              Rejoignez JCI<br /><span class="text-turquoise">Comé Excellence</span>
+            </h1>
+            <p class="text-white/65 leading-relaxed text-base mb-6">
+              La JCI est une organisation de jeunes de 18 à 40 ans présente dans plus de 150 pays. Au Bénin, JCI Comé Excellence vous ouvre ses portes pour que vous développiez votre leadership, élargissiez votre réseau et participiez à des projets qui laissent une empreinte durable.
+            </p>
+            <!-- Critères d'éligibilité -->
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2.5 text-sm text-white/70">
+                <span class="w-5 h-5 rounded-full bg-turquoise/20 flex items-center justify-center flex-shrink-0">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4FD1C5" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Hommes ou Femmes entre 18 et 40 ans
+              </li>
+              <li class="flex items-center gap-2.5 text-sm text-white/70">
+                <span class="w-5 h-5 rounded-full bg-turquoise/20 flex items-center justify-center flex-shrink-0">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4FD1C5" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Salariés, entrepreneurs ou étudiants
+              </li>
+              <li class="flex items-center gap-2.5 text-sm text-white/70">
+                <span class="w-5 h-5 rounded-full bg-turquoise/20 flex items-center justify-center flex-shrink-0">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4FD1C5" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Envie de partager, d'apprendre et de grandir
+              </li>
+            </ul>
+          </div>
+          <!-- Stats -->
+          <div class="grid grid-cols-2 gap-4" aria-hidden="true">
+            <div class="bg-white/8 backdrop-blur-sm rounded-2xl border border-white/12 p-5 text-center">
+              <p class="font-heading text-3xl font-bold text-white mb-1">150+</p>
+              <p class="text-white/50 text-xs">pays membres JCI</p>
+            </div>
+            <div class="bg-white/8 backdrop-blur-sm rounded-2xl border border-white/12 p-5 text-center">
+              <p class="font-heading text-3xl font-bold text-turquoise mb-1">2013</p>
+              <p class="text-white/50 text-xs">fondation à Comé</p>
+            </div>
+            <div class="bg-white/8 backdrop-blur-sm rounded-2xl border border-white/12 p-5 text-center">
+              <p class="font-heading text-3xl font-bold text-white mb-1">47</p>
+              <p class="text-white/50 text-xs">sections au Bénin</p>
+            </div>
+            <div class="bg-white/8 backdrop-blur-sm rounded-2xl border border-white/12 p-5 text-center">
+              <p class="font-heading text-3xl font-bold text-turquoise mb-1">18–40</p>
+              <p class="text-white/50 text-xs">ans, l'âge pour agir</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FORMULAIRE ═══ -->
+    <section class="container-site py-14 lg:py-16">
+      <div class="grid lg:grid-cols-[1fr_320px] gap-10 xl:gap-14 items-start">
+
+        <!-- ─── BLOC FORMULAIRE ─── -->
+        <div>
+          <!-- Stepper -->
+          <div id="adh-stepper" class="flex items-center gap-0 mb-10" aria-label="Étapes du formulaire" role="list">
+            <div class="flex flex-col items-center gap-1.5" role="listitem">
+              <div class="stepper-dot active" id="dot-1" aria-current="step">1</div>
+              <span class="text-xs font-medium text-marine hidden sm:block">Identité</span>
+            </div>
+            <div class="stepper-line" id="line-1"></div>
+            <div class="flex flex-col items-center gap-1.5" role="listitem">
+              <div class="stepper-dot todo" id="dot-2">2</div>
+              <span class="text-xs font-medium text-ardoise/40 hidden sm:block">Découverte</span>
+            </div>
+            <div class="stepper-line" id="line-2"></div>
+            <div class="flex flex-col items-center gap-1.5" role="listitem">
+              <div class="stepper-dot todo" id="dot-3">3</div>
+              <span class="text-xs font-medium text-ardoise/40 hidden sm:block">Motivations</span>
+            </div>
+            <div class="stepper-line" id="line-3"></div>
+            <div class="flex flex-col items-center gap-1.5" role="listitem">
+              <div class="stepper-dot todo" id="dot-4">4</div>
+              <span class="text-xs font-medium text-ardoise/40 hidden sm:block">Engagement</span>
+            </div>
+          </div>
+
+          <form id="adh-form" novalidate>
+
+            <!-- ══ ÉTAPE 1 — Identité ══ -->
+            <div class="step active" id="step-1">
+              <h2 class="font-heading text-xl font-bold text-marine mb-1">Vos informations personnelles</h2>
+              <p class="text-sm text-ardoise/55 mb-7">Les champs marqués <span class="text-azur">*</span> sont obligatoires.</p>
+
+              <div class="space-y-5">
+                <!-- Email Google (masqué visuellement, info) -->
+                <div class="bg-azur/6 border border-azur/20 rounded-xl px-4 py-3 flex items-start gap-3">
+                  <svg class="flex-shrink-0 mt-0.5" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1E96FC" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+                  <p class="text-xs text-azur-dark leading-relaxed">Vos informations sont confidentielles et ne seront utilisées que par JCI Comé Excellence dans le cadre du processus d'adhésion.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label for="adh-nom" class="field-label">Nom <span class="field-req">*</span></label>
+                    <input id="adh-nom" type="text" autocomplete="family-name" placeholder="Ex. : HOUNKANRIN" class="form-field" required aria-required="true" />
+                    <span class="field-error" id="err-nom"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Champ obligatoire.</span>
+                  </div>
+                  <div>
+                    <label for="adh-prenom" class="field-label">Prénoms <span class="field-req">*</span></label>
+                    <input id="adh-prenom" type="text" autocomplete="given-name" placeholder="Ex. : Romaric Gilles" class="form-field" required aria-required="true" />
+                    <span class="field-error" id="err-prenom"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Champ obligatoire.</span>
+                  </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label class="field-label">Sexe <span class="field-req">*</span></label>
+                    <div class="opt-group mt-1.5 flex-row gap-6" id="adh-sexe">
+                      <label class="opt-row"><input type="radio" name="sexe" value="M" required /><span>Masculin</span></label>
+                      <label class="opt-row"><input type="radio" name="sexe" value="F" /><span>Féminin</span></label>
+                    </div>
+                    <span class="field-error" id="err-sexe"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Veuillez choisir.</span>
+                  </div>
+                  <div>
+                    <label for="adh-situation" class="field-label">Situation matrimoniale <span class="field-req">*</span></label>
+                    <select id="adh-situation" class="form-field" required aria-required="true">
+                      <option value="">— Sélectionner —</option>
+                      <option value="Célibataire">Célibataire</option>
+                      <option value="Marié(e)">Marié(e)</option>
+                      <option value="Autre">Autre</option>
+                    </select>
+                    <span class="field-error" id="err-situation"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Champ obligatoire.</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="adh-naissance" class="field-label">Date et lieu de naissance <span class="field-req">*</span></label>
+                  <input id="adh-naissance" type="text" placeholder="Ex. : 12/05/1997, Comé" class="form-field" required aria-required="true" />
+                  <span class="field-error" id="err-naissance"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Champ obligatoire.</span>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label for="adh-profession" class="field-label">Profession ou occupation actuelle <span class="field-req">*</span></label>
+                    <input id="adh-profession" type="text" placeholder="Ex. : Ingénieur, Étudiant…" class="form-field" required aria-required="true" />
+                    <span class="field-error" id="err-profession"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Champ obligatoire.</span>
+                  </div>
+                  <div>
+                    <label for="adh-residence" class="field-label">Lieu de résidence <span class="field-req">*</span></label>
+                    <input id="adh-residence" type="text" placeholder="Ex. : Comé, quartier Kpodji" class="form-field" required aria-required="true" />
+                    <span class="field-error" id="err-residence"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Champ obligatoire.</span>
+                  </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label for="adh-whatsapp" class="field-label">Numéro WhatsApp <span class="field-req">*</span></label>
+                    <input id="adh-whatsapp" type="tel" autocomplete="tel" placeholder="+229 00 00 00 00" class="form-field" required aria-required="true" />
+                    <span class="field-error" id="err-whatsapp"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Champ obligatoire.</span>
+                  </div>
+                  <div>
+                    <label for="adh-email" class="field-label">Adresse email <span class="field-req">*</span></label>
+                    <input id="adh-email" type="email" autocomplete="email" placeholder="vous@example.com" class="form-field" required aria-required="true" />
+                    <span class="field-error" id="err-email"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Email invalide.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end mt-8">
+                <button type="button" onclick="goStep(2)" class="btn-primary">
+                  Étape suivante
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ══ ÉTAPE 2 — Découverte ══ -->
+            <div class="step" id="step-2">
+              <h2 class="font-heading text-xl font-bold text-marine mb-1">Comment nous avez-vous découverts ?</h2>
+              <p class="text-sm text-ardoise/55 mb-7">Ces informations nous aident à mieux vous accueillir.</p>
+
+              <div class="space-y-6">
+                <div>
+                  <label class="field-label mb-3 block">Comment avez-vous découvert JCI Comé Excellence ?</label>
+                  <div class="opt-group" id="adh-decouverte">
+                    <label class="opt-row"><input type="radio" name="decouverte" value="WhatsApp" /><span>Sur WhatsApp</span></label>
+                    <label class="opt-row"><input type="radio" name="decouverte" value="Ami(e)" id="radio-ami" /><span>Par le biais d'un(e) ami(e)</span></label>
+                    <label class="opt-row"><input type="radio" name="decouverte" value="Facebook" /><span>Sur notre page Facebook</span></label>
+                    <label class="opt-row"><input type="radio" name="decouverte" value="Activité JCI" /><span>Lors d'une activité JCI</span></label>
+                    <label class="opt-row">
+                      <input type="radio" name="decouverte" value="Autre" id="radio-decouverte-autre" />
+                      <span>Autre</span>
+                    </label>
+                    <input type="text" id="input-decouverte-autre" placeholder="Précisez…" class="form-field opt-other-input cond-section" />
+                  </div>
+                </div>
+
+                <!-- Conditionnel : nom de l'ami -->
+                <div class="cond-section" id="cond-ami">
+                  <label for="adh-ami" class="field-label">Nom et prénom de cet(te) ami(e)</label>
+                  <input id="adh-ami" type="text" placeholder="Ex. : Fiacre ADJOVI" class="form-field" />
+                </div>
+              </div>
+
+              <div class="flex justify-between mt-8">
+                <button type="button" onclick="goStep(1)" class="inline-flex items-center gap-2 text-sm font-medium text-ardoise/60 hover:text-marine transition-colors px-4 py-2.5 rounded-xl border border-ardoise/15 hover:border-ardoise/30">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg>
+                  Précédent
+                </button>
+                <button type="button" onclick="goStep(3)" class="btn-primary">
+                  Étape suivante
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ══ ÉTAPE 3 — Motivations ══ -->
+            <div class="step" id="step-3">
+              <h2 class="font-heading text-xl font-bold text-marine mb-1">Vos motivations</h2>
+              <p class="text-sm text-ardoise/55 mb-7">Dites-nous ce qui vous attire à la JCI.</p>
+
+              <div class="space-y-6">
+                <div>
+                  <label for="adh-motivation" class="field-label">Voulez-vous être membre ? En quoi la JCI peut vous être utile ? <span class="field-req">*</span></label>
+                  <textarea id="adh-motivation" placeholder="Exprimez-vous librement…" class="form-field" required aria-required="true"></textarea>
+                  <span class="field-error" id="err-motivation"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Veuillez répondre à cette question.</span>
+                </div>
+
+                <div>
+                  <label class="field-label mb-3 block">Quelles sont vos attentes en venant à la JCI ? <span class="field-req">*</span></label>
+                  <div class="opt-group" id="adh-attentes">
+                    <label class="opt-row"><input type="checkbox" name="attentes" value="Camaraderie" /><span>Camaraderie</span></label>
+                    <label class="opt-row"><input type="checkbox" name="attentes" value="Affaires" /><span>Affaires</span></label>
+                    <label class="opt-row"><input type="checkbox" name="attentes" value="Voyages" /><span>Voyages</span></label>
+                    <label class="opt-row"><input type="checkbox" name="attentes" value="Formations" /><span>Formations</span></label>
+                    <label class="opt-row"><input type="checkbox" name="attentes" value="Services communautaires" /><span>Services communautaires</span></label>
+                    <label class="opt-row">
+                      <input type="checkbox" name="attentes" value="Autres" id="cb-attentes-autre" />
+                      <span>Autres</span>
+                    </label>
+                    <input type="text" id="input-attentes-autre" placeholder="Précisez vos autres attentes…" class="form-field opt-other-input cond-section" />
+                  </div>
+                  <span class="field-error" id="err-attentes"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Cochez au moins une attente.</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between mt-8">
+                <button type="button" onclick="goStep(2)" class="inline-flex items-center gap-2 text-sm font-medium text-ardoise/60 hover:text-marine transition-colors px-4 py-2.5 rounded-xl border border-ardoise/15 hover:border-ardoise/30">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg>
+                  Précédent
+                </button>
+                <button type="button" onclick="goStep(4)" class="btn-primary">
+                  Étape suivante
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ══ ÉTAPE 4 — Engagement ══ -->
+            <div class="step" id="step-4">
+              <h2 class="font-heading text-xl font-bold text-marine mb-1">Engagement &amp; associations</h2>
+              <p class="text-sm text-ardoise/55 mb-7">Votre profil associatif et votre engagement pour la formation.</p>
+
+              <div class="space-y-6">
+                <!-- Membre d'une association ? -->
+                <div>
+                  <label class="field-label mb-2 block">Appartenez-vous déjà à une association de jeunes ou club service ? <span class="field-req">*</span></label>
+                  <div class="opt-group flex-row gap-6" id="adh-asso">
+                    <label class="opt-row"><input type="radio" name="asso" value="Oui" id="radio-asso-oui" required /><span>Oui</span></label>
+                    <label class="opt-row"><input type="radio" name="asso" value="Non" /><span>Non</span></label>
+                  </div>
+                  <span class="field-error" id="err-asso"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Veuillez choisir.</span>
+                </div>
+
+                <!-- Conditionnel : type d'organisation -->
+                <div class="cond-section" id="cond-asso">
+                  <div class="bg-fondclair rounded-xl border border-ardoise/10 p-5 space-y-5">
+                    <div>
+                      <label class="field-label mb-2 block">Type d'organisation <span class="field-req">*</span></label>
+                      <div class="opt-group" id="adh-type-asso">
+                        <label class="opt-row"><input type="radio" name="type_asso" value="ONG" /><span>ONG</span></label>
+                        <label class="opt-row"><input type="radio" name="type_asso" value="Parti politique" /><span>Parti politique</span></label>
+                        <label class="opt-row"><input type="radio" name="type_asso" value="Association religieuse" /><span>Association religieuse</span></label>
+                        <label class="opt-row"><input type="radio" name="type_asso" value="Club service" /><span>Club service</span></label>
+                        <label class="opt-row"><input type="radio" name="type_asso" value="Aucun" /><span>Aucun</span></label>
+                        <label class="opt-row">
+                          <input type="radio" name="type_asso" value="Autres" id="radio-type-asso-autre" />
+                          <span>Autres</span>
+                        </label>
+                        <input type="text" id="input-type-asso-autre" placeholder="Précisez…" class="form-field opt-other-input cond-section" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="field-label mb-2 block">Exercez-vous une responsabilité au sein de cette association ?</label>
+                      <div class="opt-group" id="adh-responsabilite">
+                        <label class="opt-row"><input type="radio" name="responsabilite" value="Président(e)" /><span>Président(e)</span></label>
+                        <label class="opt-row"><input type="radio" name="responsabilite" value="Trésorier(e)" /><span>Trésorier(e)</span></label>
+                        <label class="opt-row"><input type="radio" name="responsabilite" value="Secrétaire" /><span>Secrétaire</span></label>
+                        <label class="opt-row">
+                          <input type="radio" name="responsabilite" value="Autres" id="radio-resp-autre" />
+                          <span>Autres</span>
+                        </label>
+                        <input type="text" id="input-resp-autre" placeholder="Précisez votre rôle…" class="form-field opt-other-input cond-section" />
+                        <label class="opt-row"><input type="radio" name="responsabilite" value="Aucune" /><span>Aucune responsabilité</span></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Formation JCI -->
+                <div class="bg-azur/6 border border-azur/20 rounded-xl p-5 space-y-4">
+                  <div>
+                    <label class="field-label mb-2 block">Avez-vous été informé(e) que l'adhésion à la JCI implique un programme de formation évalué ? <span class="field-req">*</span></label>
+                    <div class="opt-group flex-row gap-6" id="adh-informe">
+                      <label class="opt-row"><input type="radio" name="informe" value="Oui" required /><span>Oui</span></label>
+                      <label class="opt-row"><input type="radio" name="informe" value="Non" /><span>Non</span></label>
+                    </div>
+                    <span class="field-error" id="err-informe"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Veuillez choisir.</span>
+                  </div>
+
+                  <div>
+                    <label class="field-label mb-2 block">Confirmez-vous votre acceptation de ce programme de formation ? <span class="field-req">*</span></label>
+                    <div class="opt-group flex-row gap-6" id="adh-acceptation">
+                      <label class="opt-row"><input type="radio" name="acceptation" value="Oui" required /><span>Oui, j'accepte</span></label>
+                      <label class="opt-row"><input type="radio" name="acceptation" value="Non" /><span>Non</span></label>
+                    </div>
+                    <span class="field-error" id="err-acceptation"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Veuillez choisir.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-between mt-8">
+                <button type="button" onclick="goStep(3)" class="inline-flex items-center gap-2 text-sm font-medium text-ardoise/60 hover:text-marine transition-colors px-4 py-2.5 rounded-xl border border-ardoise/15 hover:border-ardoise/30">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg>
+                  Précédent
+                </button>
+                <button type="submit" id="adh-submit" class="btn-primary px-8">
+                  <span class="btn-text flex items-center gap-2">
+                    Soumettre ma candidature
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+                  </span>
+                  <span class="btn-spinner" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+
+          </form>
+
+          <!-- ─── CONFIRMATION ─── -->
+          <div id="adh-success" class="flex-col items-center text-center bg-vert/8 border border-vert/25 rounded-2xl px-8 py-12" role="status" aria-live="polite">
+            <div class="w-16 h-16 rounded-full bg-vert/15 flex items-center justify-center mb-5">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h2 class="font-heading text-2xl font-bold text-marine mb-3">Candidature reçue !</h2>
+            <p class="text-ardoise/65 leading-relaxed max-w-sm mb-2">
+              Merci <strong id="success-prenom"></strong> ! Votre dossier de candidature a bien été transmis à JCI Comé Excellence.
+            </p>
+            <p class="text-sm text-ardoise/50 mb-6">Notre équipe vous contactera dans les prochains jours sur votre WhatsApp ou votre email.</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+              <a href="index.html" class="btn-primary">Retour à l'accueil</a>
+              <a href="actualites.html" class="inline-flex items-center gap-2 border border-ardoise/20 text-ardoise/70 font-heading font-medium text-sm px-5 py-2.5 rounded-xl hover:bg-ardoise/5 transition-colors">Lire nos actualités</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── SIDEBAR ─── -->
+        <aside class="space-y-5" aria-label="Informations pratiques">
+
+          <!-- Avancement -->
+          <div data-reveal class="bg-white rounded-2xl border border-ardoise/10 p-5 shadow-card">
+            <p class="font-heading text-xs font-semibold text-ardoise/40 uppercase tracking-wide mb-3">Progression</p>
+            <div class="flex items-center gap-2 mb-2">
+              <div class="flex-1 bg-ardoise/10 rounded-full h-1.5 overflow-hidden">
+                <div id="progress-bar" class="h-full bg-azur rounded-full transition-all duration-500" style="width:25%"></div>
+              </div>
+              <span id="progress-label" class="text-xs font-semibold text-azur tabular-nums">1/4</span>
+            </div>
+            <p class="text-xs text-ardoise/45" id="progress-step-name">Identité</p>
+          </div>
+
+          <!-- Ce qui vous attend -->
+          <div data-reveal data-delay="1" class="bg-white rounded-2xl border border-ardoise/10 p-5 shadow-card">
+            <p class="font-heading text-xs font-semibold text-ardoise/40 uppercase tracking-wide mb-4">Ce qui vous attend</p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-azur/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1E96FC" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                <div>
+                  <p class="text-xs font-semibold text-marine">Examen de votre dossier</p>
+                  <p class="text-xs text-ardoise/50 leading-relaxed">Notre équipe examine votre candidature sous 5 jours.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-azur/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1E96FC" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                <div>
+                  <p class="text-xs font-semibold text-marine">Entretien de bienvenue</p>
+                  <p class="text-xs text-ardoise/50 leading-relaxed">Un membre du bureau vous contacte pour un échange informel.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-vert/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                <div>
+                  <p class="text-xs font-semibold text-marine">Programme de formation</p>
+                  <p class="text-xs text-ardoise/50 leading-relaxed">Intégration via un parcours de formation évalué JCI.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-turquoise/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                <div>
+                  <p class="text-xs font-semibold text-marine">Bienvenue dans la famille !</p>
+                  <p class="text-xs text-ardoise/50 leading-relaxed">Vous rejoignez officiellement JCI Comé Excellence.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Question ? -->
+          <div data-reveal data-delay="2" class="bg-gradient-to-br from-marine to-azur-dark rounded-2xl p-5 text-white">
+            <p class="font-heading text-sm font-semibold mb-1">Une question ?</p>
+            <p class="text-white/55 text-xs mb-4 leading-relaxed">Notre équipe répond à vos questions avant votre candidature.</p>
+            <a href="contact.html" class="inline-flex items-center gap-1.5 text-xs font-semibold text-turquoise hover:text-turquoise-light transition-colors">
+              Nous contacter
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="bg-marine-dark text-white/70">
+    <div class="container-site py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div>
+        <p class="font-heading text-xl font-semibold text-white mb-1">JCI <span class="text-turquoise">Comé Excellence</span></p>
+        <p class="text-sm leading-relaxed">Jeunes leaders engagés pour le développement de Comé, Mono, Bénin.</p>
+      </div>
+      <div>
+        <h3 class="font-heading text-xs font-medium text-white uppercase tracking-wide mb-4">Navigation</h3>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="index.html"       class="hover:text-white transition-colors">Accueil</a></li>
+          <li><a href="a-propos.html"    class="hover:text-white transition-colors">À propos</a></li>
+          <li><a href="projets.html"     class="hover:text-white transition-colors">Projets</a></li>
+          <li><a href="evenements.html"  class="hover:text-white transition-colors">Événements</a></li>
+          <li><a href="actualites.html"  class="hover:text-white transition-colors">Actualités</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-heading text-xs font-medium text-white uppercase tracking-wide mb-4">Ressources</h3>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="galerie.html"     class="hover:text-white transition-colors">Galerie</a></li>
+          <li><a href="partenaires.html" class="hover:text-white transition-colors">Partenaires</a></li>
+          <li><a href="adhesion.html"    class="text-white font-medium">Adhésion</a></li>
+          <li><a href="contact.html"     class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-heading text-xs font-medium text-white uppercase tracking-wide mb-4">Contact</h3>
+        <ul class="space-y-2.5 text-sm">
+          <li>Comé, Département du Mono, Bénin</li>
+          <li>+229 00 00 00 00</li>
+          <li>contact@jcicomeexcellence.org</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="container-site py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/40">
+        <p>© <span data-current-year>2026</span> JCI Comé Excellence. Tous droits réservés.</p>
+        <div class="flex gap-5">
+          <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+          <a href="#" class="hover:text-white transition-colors">Confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+  (function () {
+    var currentStep = 1;
+    var stepNames = ["", "Identité", "Découverte", "Motivations", "Engagement"];
+
+    /* ── Stepper ── */
+    function updateStepper(step) {
+      for (var i = 1; i <= 4; i++) {
+        var dot  = document.getElementById("dot-" + i);
+        var line = document.getElementById("line-" + i);
+        if (i < step)       { dot.className = "stepper-dot done"; if (line) line.className = "stepper-line done"; }
+        else if (i === step){ dot.className = "stepper-dot active"; dot.setAttribute("aria-current","step"); if (line) line.className = "stepper-line"; }
+        else                { dot.className = "stepper-dot todo"; dot.removeAttribute("aria-current"); if (line) line.className = "stepper-line"; }
+      }
+      var bar   = document.getElementById("progress-bar");
+      var label = document.getElementById("progress-label");
+      var name  = document.getElementById("progress-step-name");
+      if (bar)   bar.style.width = (step * 25) + "%";
+      if (label) label.textContent = step + "/4";
+      if (name)  name.textContent = stepNames[step] || "";
+    }
+
+    /* ── Validation par étape ── */
+    function setErr(id, show) {
+      var el = document.getElementById("err-" + id);
+      var input = document.getElementById("adh-" + id) || document.querySelector("[name='" + id + "']");
+      if (el) el.classList.toggle("show", show);
+      if (input) {
+        input.classList.toggle("error", show);
+        if (show) input.setAttribute("aria-invalid","true");
+        else      input.removeAttribute("aria-invalid");
+      }
+    }
+    function val(id)   { var el = document.getElementById("adh-" + id); return el ? el.value.trim() : ""; }
+    function radio(nm) { var el = document.querySelector("[name='" + nm + "']:checked"); return el ? el.value : ""; }
+
+    function validateStep(step) {
+      var ok = true;
+      if (step === 1) {
+        if (val("nom").length      < 2)  { setErr("nom",true);       ok=false; } else setErr("nom",false);
+        if (val("prenom").length   < 2)  { setErr("prenom",true);    ok=false; } else setErr("prenom",false);
+        if (!radio("sexe"))              { setErr("sexe",true);      ok=false; } else setErr("sexe",false);
+        if (!val("situation"))           { setErr("situation",true);  ok=false; } else setErr("situation",false);
+        if (val("naissance").length < 3) { setErr("naissance",true); ok=false; } else setErr("naissance",false);
+        if (val("profession").length< 2) { setErr("profession",true);ok=false; } else setErr("profession",false);
+        if (val("residence").length < 2) { setErr("residence",true); ok=false; } else setErr("residence",false);
+        if (val("whatsapp").length  < 6) { setErr("whatsapp",true);  ok=false; } else setErr("whatsapp",false);
+        var email = val("email");
+        var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!emailOk) { setErr("email",true); ok=false; } else setErr("email",false);
+      }
+      if (step === 3) {
+        if (val("motivation").length < 10) { setErr("motivation",true); ok=false; } else setErr("motivation",false);
+        var checked = document.querySelectorAll("[name='attentes']:checked");
+        if (checked.length === 0) { setErr("attentes",true); ok=false; } else setErr("attentes",false);
+      }
+      if (step === 4) {
+        if (!radio("asso"))        { setErr("asso",true);        ok=false; } else setErr("asso",false);
+        if (!radio("informe"))     { setErr("informe",true);     ok=false; } else setErr("informe",false);
+        if (!radio("acceptation")) { setErr("acceptation",true); ok=false; } else setErr("acceptation",false);
+      }
+      return ok;
+    }
+
+    /* ── Navigation entre étapes ── */
+    window.goStep = function (target) {
+      if (target > currentStep && !validateStep(currentStep)) {
+        var firstErr = document.querySelector(".field-error.show");
+        if (firstErr) firstErr.previousElementSibling && firstErr.previousElementSibling.focus();
+        return;
+      }
+      document.getElementById("step-" + currentStep).classList.remove("active");
+      currentStep = target;
+      var stepEl = document.getElementById("step-" + currentStep);
+      stepEl.classList.add("active");
+      updateStepper(currentStep);
+      window.scrollTo({ top: document.getElementById("adh-form").getBoundingClientRect().top + window.scrollY - 110, behavior: "smooth" });
+    };
+
+    /* ── Sections conditionnelles ── */
+    /* Ami */
+    document.querySelectorAll("[name='decouverte']").forEach(function (r) {
+      r.addEventListener("change", function () {
+        document.getElementById("cond-ami").classList.toggle("show", r.value === "Ami(e)");
+        document.getElementById("input-decouverte-autre").classList.toggle("show", r.value === "Autre");
+      });
+    });
+    /* Association */
+    document.querySelectorAll("[name='asso']").forEach(function (r) {
+      r.addEventListener("change", function () {
+        document.getElementById("cond-asso").classList.toggle("show", r.value === "Oui");
+      });
+    });
+    /* Autres dans type asso */
+    document.querySelectorAll("[name='type_asso']").forEach(function (r) {
+      r.addEventListener("change", function () {
+        document.getElementById("input-type-asso-autre").classList.toggle("show", r.value === "Autres");
+      });
+    });
+    /* Autres dans responsabilité */
+    document.querySelectorAll("[name='responsabilite']").forEach(function (r) {
+      r.addEventListener("change", function () {
+        document.getElementById("input-resp-autre").classList.toggle("show", r.value === "Autres");
+      });
+    });
+    /* Autres dans attentes */
+    document.getElementById("cb-attentes-autre").addEventListener("change", function () {
+      document.getElementById("input-attentes-autre").classList.toggle("show", this.checked);
+    });
+
+    /* ── Effacer erreurs à la saisie ── */
+    document.querySelectorAll(".form-field").forEach(function (el) {
+      el.addEventListener("input", function () {
+        el.classList.remove("error");
+        el.removeAttribute("aria-invalid");
+      });
+    });
+    document.querySelectorAll("input[type='radio'], input[type='checkbox']").forEach(function (el) {
+      el.addEventListener("change", function () {
+        var name = el.getAttribute("name");
+        var errId = "err-" + name;
+        var errEl = document.getElementById(errId);
+        if (errEl) errEl.classList.remove("show");
+      });
+    });
+
+    /* ── Soumission ── */
+    document.getElementById("adh-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!validateStep(4)) return;
+
+      var btn = document.getElementById("adh-submit");
+      btn.classList.add("loading"); btn.disabled = true;
+
+      setTimeout(function () {
+        var prenom = val("prenom").split(" ")[0];
+        document.getElementById("success-prenom").textContent = prenom ? prenom + " !" : "";
+        document.getElementById("adh-form").style.display = "none";
+        document.getElementById("adh-stepper").style.display = "none";
+        var s = document.getElementById("adh-success");
+        s.classList.add("show");
+        s.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 1600);
+    });
+
+    /* ── Reveal ── */
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll("[data-reveal]").forEach(function (el) { obs.observe(el); });
+
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js');</script>
+  <title>À propos — JCI Comé Excellence</title>
+  <meta name="description" content="Découvrez l'histoire, la mission, les valeurs et l'organisation de JCI Comé Excellence, jeunes leaders engagés pour le développement de Comé au Bénin depuis 2013." />
+  <meta name="keywords" content="JCI Comé Excellence, à propos, histoire, mission, valeurs, Jeune Chambre Internationale, Comé, Bénin" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="À propos — JCI Comé Excellence" />
+  <meta property="og:description" content="Notre histoire, notre mission, nos valeurs : tout ce qui fait de JCI Comé Excellence une organisation de référence pour la jeunesse du Mono." />
+  <meta property="og:image" content="assets/images/logo/logo-jci-come-optimized.png" />
+  <meta property="og:locale" content="fr_FR" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/favicon-180.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/output.css" />
+</head>
+<body class="font-body text-ardoise bg-fondclair antialiased">
+  <a href="#contenu" class="skip-link">Aller au contenu principal</a>
+
+  <!-- ===== HEADER ===== -->
+  <header data-site-header data-scrolled="false" class="fixed top-0 inset-x-0 z-50 bg-white border-b border-ardoise/10 transition-shadow duration-300 data-[scrolled=true]:shadow-md">
+    <div class="container-site flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+        <img src="assets/images/logo/logo-jci-come-optimized.png" alt="JCI Comé Excellence" class="h-12 w-auto" width="210" height="140" />
+      </a>
+      <nav class="hidden lg:flex items-center gap-8" aria-label="Navigation principale">
+        <a href="index.html" class="nav-link text-marine">Accueil</a>
+        <a href="a-propos.html" class="nav-link text-azur-dark after:w-full" aria-current="page">À propos</a>
+        <a href="bureau-membres.html" class="nav-link text-marine">Bureau &amp; membres</a>
+        <a href="projets.html" class="nav-link text-marine">Projets</a>
+        <a href="evenements.html" class="nav-link text-marine">Événements</a>
+        <a href="actualites.html" class="nav-link text-marine">Actualités</a>
+        <a href="galerie.html" class="nav-link text-marine">Galerie</a>
+        <a href="partenaires.html" class="nav-link text-marine">Partenaires</a>
+        <a href="contact.html" class="nav-link text-marine">Contact</a>
+      </nav>
+      <div class="hidden lg:block flex-shrink-0">
+        <a href="adhesion.html" class="btn-primary">Adhérer</a>
+      </div>
+      <button type="button" data-menu-toggle aria-expanded="false" aria-controls="menu-mobile" aria-label="Ouvrir le menu" class="lg:hidden relative inline-flex items-center justify-center w-11 h-11 rounded-lg text-marine hover:bg-fondclair">
+        <svg data-icon-open width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="absolute"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+        <svg data-icon-close width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="absolute hidden"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== MENU MOBILE ===== -->
+  <div id="menu-mobile" data-menu-panel data-open="false" class="fixed inset-0 z-40 bg-marine text-white transform transition-transform duration-300 data-[open=false]:-translate-y-full data-[open=true]:translate-y-0 lg:hidden flex flex-col">
+    <div class="h-20 flex-shrink-0"></div>
+    <nav class="flex-1 flex flex-col items-start justify-center gap-1 container-site" aria-label="Navigation mobile">
+      <a href="index.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Accueil</a>
+      <a href="a-propos.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full text-turquoise">À propos</a>
+      <a href="bureau-membres.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Bureau &amp; membres</a>
+      <a href="projets.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Projets</a>
+      <a href="evenements.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Événements</a>
+      <a href="actualites.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Actualités</a>
+      <a href="galerie.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Galerie</a>
+      <a href="partenaires.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Partenaires</a>
+      <a href="contact.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Contact</a>
+      <a href="adhesion.html" class="btn-primary mt-6">Adhérer</a>
+    </nav>
+  </div>
+
+  <main id="contenu">
+
+    <!-- ===== 1. HERO ===== -->
+    <section class="relative pt-20 overflow-hidden bg-marine">
+      <div class="absolute inset-0 bg-gradient-to-br from-marine via-marine to-azur-dark"></div>
+      <!-- Blobs décoratifs -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-azur/20 blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute top-1/3 -right-32 w-[28rem] h-[28rem] rounded-full bg-turquoise/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <!-- Motif géométrique décoratif -->
+      <div class="absolute inset-0 opacity-10" aria-hidden="true">
+        <svg viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" class="w-full h-full">
+          <circle cx="180" cy="120" r="180" fill="none" stroke="#4FD1C5" stroke-width="1"/>
+          <circle cx="180" cy="120" r="120" fill="none" stroke="#1E96FC" stroke-width="1"/>
+          <circle cx="1320" cy="560" r="220" fill="none" stroke="#4FD1C5" stroke-width="1"/>
+          <circle cx="1320" cy="560" r="140" fill="none" stroke="#1E96FC" stroke-width="1"/>
+          <line x1="0" y1="340" x2="1440" y2="340" stroke="#4FD1C5" stroke-width="0.5"/>
+        </svg>
+      </div>
+
+      <div class="relative container-site py-16 sm:py-24">
+        <!-- Fil d'Ariane -->
+        <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 text-sm text-white/50 mb-10">
+          <a href="index.html" class="hover:text-white/80 transition-colors">Accueil</a>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="flex-shrink-0" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+          <span class="text-turquoise font-medium">À propos</span>
+        </nav>
+
+        <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
+          <div data-reveal>
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-turquoise mb-6">
+              <span class="h-1.5 w-1.5 rounded-full bg-turquoise"></span>
+              Qui sommes-nous
+            </span>
+            <h1 class="font-heading text-4xl sm:text-5xl lg:text-[3.4rem] font-semibold text-white leading-[1.1] mb-6">
+              Nous révélons les leaders<br class="hidden sm:block" /> qui transforment <span class="text-turquoise">Comé.</span>
+            </h1>
+            <p class="text-white/75 text-lg max-w-xl leading-relaxed mb-10">
+              Depuis 2013, La JCI Comé Excellence accompagne les jeunes de 18 à 40 ans dans leur développement personnel, professionnel et citoyen afin qu'ils deviennent des acteurs du changement dans leur communauté.
+            </p>
+            <div class="flex flex-wrap items-center gap-4">
+              <a href="#qui-sommes-nous" class="btn-cta">Découvrir notre histoire</a>
+              <a href="adhesion.html" class="inline-flex items-center justify-center gap-2 border-2 border-white/25 text-white font-heading font-medium px-6 py-3 rounded-lg hover:bg-white/10 transition-colors duration-200">Rejoindre la JCI</a>
+            </div>
+          </div>
+
+          <div data-reveal style="transition-delay:120ms" class="relative max-w-md mx-auto w-full">
+            <div class="absolute -inset-4 rounded-[2rem] border border-white/10" aria-hidden="true"></div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 rounded-2xl bg-turquoise/20 hidden sm:block" aria-hidden="true"></div>
+            <img
+              src="assets/images/hero/hero-3.jpg"
+              alt="Jeunes membres de JCI Comé Excellence réunis lors d'une activité de l'organisation"
+              class="relative w-full rounded-2xl object-cover shadow-card ring-1 ring-white/10 aspect-[4/5]"
+              width="1442" height="1091" loading="eager"
+            />
+            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 sm:-left-8 sm:left-auto sm:right-6 sm:translate-x-0 bg-white rounded-xl shadow-card px-5 py-3 flex items-center gap-3 w-max z-10">
+              <span class="font-mono text-xl font-medium text-marine">85+</span>
+              <span class="text-xs text-ardoise/60 leading-tight">Jeunes leaders<br/>engagés</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vague de séparation -->
+      <div class="relative">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" class="w-full h-12 sm:h-16 block" aria-hidden="true">
+          <path d="M0,80 C360,0 1080,80 1440,20 L1440,80 Z" fill="#FFFFFF"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== 2. QUI SOMMES-NOUS ===== -->
+    <section id="qui-sommes-nous" class="bg-white py-16 sm:py-24">
+      <div class="container-site">
+        <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+          <div data-reveal class="relative max-w-lg mx-auto w-full lg:order-1">
+            <div class="absolute -bottom-5 -left-5 w-full h-full rounded-2xl bg-azur/15 hidden sm:block" aria-hidden="true"></div>
+            <div class="absolute -top-5 -right-5 w-20 h-20 rounded-2xl bg-turquoise/20 hidden sm:block" aria-hidden="true"></div>
+            <img
+              src="assets/images/a-propos/equipe.jpg"
+              alt="L'équipe de JCI Comé Excellence en uniforme devant le kakémono officiel de l'organisation"
+              class="relative w-full rounded-2xl object-cover shadow-card ring-1 ring-marine/5 aspect-[5/4]"
+              width="1100" height="880" loading="lazy"
+            />
+            <div class="absolute -bottom-6 right-1/2 translate-x-1/2 sm:right-6 sm:translate-x-0 bg-white rounded-xl shadow-card px-5 py-3 flex items-center gap-3 w-max z-10">
+              <span class="font-mono text-xl font-medium text-marine">2013</span>
+              <span class="text-xs text-ardoise/60 leading-tight">Fondée à<br/>Comé, Bénin</span>
+            </div>
+          </div>
+
+          <div data-reveal style="transition-delay:100ms" class="lg:order-2">
+            <span class="text-azur-dark text-sm font-medium uppercase tracking-wide">Notre organisation</span>
+            <h2 class="section-title mt-3 mb-6">Une organisation locale,<br/>membre d'un réseau mondial.</h2>
+            <p class="text-ardoise/80 leading-relaxed mb-4">
+              JCI Comé Excellence est une organisation locale affiliée à la <strong class="text-marine">Jeune Chambre Internationale (JCI)</strong>, le plus grand réseau mondial de jeunes leaders actifs dans plus de <strong class="text-marine">100 pays</strong>. Implantée dans la commune de Comé, au cœur du département du Mono au Bénin, elle rassemble des femmes et des hommes de <strong class="text-marine">18 à 40 ans</strong> qui partagent une même ambition : développer leurs capacités de leadership pour agir concrètement au service de leur communauté.
+            </p>
+            <p class="text-ardoise/80 leading-relaxed mb-8">
+              Fondée en <strong class="text-marine">2013</strong>, l'organisation a porté à ce jour plus de <strong class="text-marine">40 projets</strong> dans les domaines de l'entrepreneuriat, de l'éducation, de l'environnement et de la citoyenneté. Chaque action est pensée pour produire un impact mesurable, durable et visible à Comé.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a href="bureau-membres.html" class="btn-primary">Rencontrer l'équipe</a>
+              <a href="adhesion.html" class="btn-outline">Rejoindre la JCI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. VISION & MISSION ===== -->
+    <section class="relative overflow-hidden bg-marine">
+      <div class="grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)]">
+        <div data-reveal class="relative min-h-[18rem] lg:min-h-[34rem]">
+          <img
+            src="assets/images/temoignage/methode.jpg"
+            alt="Un membre de JCI Comé Excellence s'exprimant devant un auditoire"
+            class="absolute inset-0 w-full h-full object-cover"
+            width="700" height="875" loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-marine/10 via-marine/40 to-marine"></div>
+        </div>
+        <div class="relative px-6 sm:px-12 lg:px-16 py-16 sm:py-20 lg:py-0 lg:flex lg:flex-col lg:justify-center">
+          <div data-reveal class="max-w-xl">
+            <h2 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-none">VISION</h2>
+            <p class="text-white/75 text-base sm:text-lg leading-relaxed mt-4 max-w-md">
+              Être l'organisation de référence de la jeunesse active du Mono : un incubateur de leaders et un pont vers le réseau JCI mondial.
+            </p>
+          </div>
+          <div class="h-px w-24 bg-white/15 my-10 lg:my-12" aria-hidden="true"></div>
+          <div data-reveal style="transition-delay:100ms" class="max-w-xl">
+            <h2 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-none">MISSION</h2>
+            <p class="text-white/75 text-base sm:text-lg leading-relaxed mt-4 max-w-md">
+              Offrir aux jeunes des opportunités de développement du leadership en leur donnant la capacité de créer des changements positifs à Comé.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. POURQUOI JCI COMÉ EXCELLENCE ===== -->
+    <section class="opportunity-story relative overflow-hidden bg-white py-20 sm:py-28">
+      <div class="opportunity-grid" aria-hidden="true"></div>
+
+      <div class="container-site relative z-10">
+        <div data-reveal class="mx-auto mb-20 max-w-4xl text-center">
+          <span class="inline-flex items-center gap-2 rounded-full border border-azur/20 bg-azur/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-azur-dark">
+            <span class="h-1.5 w-1.5 rounded-full bg-turquoise"></span>
+            Pourquoi nous rejoindre
+          </span>
+          <h2 class="mx-auto mt-6 max-w-3xl font-heading text-3xl font-semibold leading-tight text-marine sm:text-4xl lg:text-5xl">
+            Pourquoi JCI Comé Excellence ?
+          </h2>
+          <p class="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-ardoise/75 sm:text-lg">
+            Rejoindre la JCI, c'est intégrer un parcours complet où chaque étape vous fait grandir : du leadership à l'engagement communautaire, en passant par le réseau et la formation.
+          </p>
+        </div>
+
+        <div class="space-y-20 sm:space-y-24 lg:space-y-28">
+
+          <!-- 01 — LEADERSHIP -->
+          <article data-reveal class="opportunity-feature group" style="--accent: #1E96FC; --accent-soft: rgba(30, 150, 252, 0.12);">
+            <div class="opportunity-copy">
+              <span class="opportunity-number" aria-hidden="true">01</span>
+              <div class="opportunity-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18"/><path d="M5 4h12l-2.5 4L17 12H5"/></svg>
+              </div>
+              <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-marine mb-3">Développer votre leadership</h3>
+              <p class="text-ardoise/75 leading-relaxed mb-5">Apprenez à décider, à mobiliser et à porter une vision, à travers des responsabilités concrètes au sein de l'organisation.</p>
+              <ul class="space-y-3 mb-2">
+                <li class="opportunity-point"><span>Prise de responsabilités dès votre arrivée</span></li>
+                <li class="opportunity-point"><span>Encadrement par des membres expérimentés</span></li>
+                <li class="opportunity-point"><span>Mises en situation réelles de décision</span></li>
+              </ul>
+              <a href="bureau-membres.html" class="opportunity-link mt-8">
+                <span>Voir le bureau exécutif</span>
+                <span class="opportunity-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+            <figure class="opportunity-media">
+              <img src="assets/images/a-propos/1.png" alt="Jeune leader prenant la parole devant un groupe de membres JCI" class="opportunity-image" width="2048" height="1152" loading="lazy" />
+            </figure>
+          </article>
+
+          <div class="opportunity-separator" aria-hidden="true"></div>
+
+          <!-- 02 — PROJETS -->
+          <article data-reveal class="opportunity-feature group lg:[&_.opportunity-copy]:order-2 lg:[&_.opportunity-media]:order-1" style="--accent: #F59E0B; --accent-soft: rgba(245, 158, 11, 0.12);">
+            <div class="opportunity-copy">
+              <span class="opportunity-number" aria-hidden="true">02</span>
+              <div class="opportunity-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>
+              </div>
+              <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-marine mb-3">Concevoir des projets</h3>
+              <p class="text-ardoise/75 leading-relaxed mb-5">Passez de l'idée à l'action : imaginez, planifiez et pilotez des projets à impact réel pour votre communauté.</p>
+              <ul class="space-y-3 mb-2">
+                <li class="opportunity-point"><span>Méthodologie de gestion de projet JCI</span></li>
+                <li class="opportunity-point"><span>Budget, partenaires et logistique à gérer</span></li>
+                <li class="opportunity-point"><span>Un impact mesurable et visible à Comé</span></li>
+              </ul>
+              <a href="projets.html" class="opportunity-link mt-8">
+                <span>Découvrir nos projets</span>
+                <span class="opportunity-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+            <figure class="opportunity-media relative">
+              <img src="assets/images/a-propos/2.png" alt="Membres JCI en réunion de conception d'un projet communautaire" class="opportunity-image" width="2048" height="1152" loading="lazy" />
+              <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur rounded-xl shadow-card px-4 py-2.5 flex items-center gap-2.5 z-20">
+                <span class="font-mono text-lg font-semibold text-marine">40+</span>
+                <span class="text-xs text-ardoise/60 leading-tight">Projets<br/>réalisés</span>
+              </div>
+            </figure>
+          </article>
+
+          <div class="opportunity-separator" aria-hidden="true"></div>
+
+          <!-- 03 — RÉSEAU -->
+          <article data-reveal class="opportunity-feature group" style="--accent: #4FD1C5; --accent-soft: rgba(79, 209, 197, 0.16);">
+            <div class="opportunity-copy">
+              <span class="opportunity-number" aria-hidden="true">03</span>
+              <div class="opportunity-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 6.5a3.2 3.2 0 0 1 0 6.3"/><path d="M22 19.5c0-3-2.4-5-5.5-5.6"/></svg>
+              </div>
+              <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-marine mb-3">Développer votre réseau</h3>
+              <p class="text-ardoise/75 leading-relaxed mb-5">Rejoignez un réseau de plus de 200 000 membres actifs dans le monde et créez des liens durables et utiles.</p>
+              <ul class="space-y-3 mb-2">
+                <li class="opportunity-point"><span>Accès au réseau international de la JCI</span></li>
+                <li class="opportunity-point"><span>Rencontres avec des acteurs locaux et institutionnels</span></li>
+                <li class="opportunity-point"><span>Congrès, forums et échanges inter-organisations</span></li>
+              </ul>
+              <a href="partenaires.html" class="opportunity-link mt-8">
+                <span>Voir nos partenaires</span>
+                <span class="opportunity-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+            <figure class="opportunity-media">
+              <img src="assets/images/a-propos/3.png" alt="Jeunes échangeant lors d'un événement de réseautage JCI" class="opportunity-image" width="1672" height="941" loading="lazy" />
+            </figure>
+          </article>
+
+          <div class="opportunity-separator" aria-hidden="true"></div>
+
+          <!-- 04 — FORMATION -->
+          <article data-reveal class="opportunity-feature group lg:[&_.opportunity-copy]:order-2 lg:[&_.opportunity-media]:order-1" style="--accent: #0F766E; --accent-soft: rgba(15, 118, 110, 0.12);">
+            <div class="opportunity-copy">
+              <span class="opportunity-number" aria-hidden="true">04</span>
+              <div class="opportunity-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </div>
+              <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-marine mb-3">Vous former</h3>
+              <p class="text-ardoise/75 leading-relaxed mb-5">Accédez à des formations pratiques en leadership, communication, gestion de projet et prise de parole en public.</p>
+              <ul class="space-y-3 mb-2">
+                <li class="opportunity-point"><span>Ateliers et ateliers pratiques réguliers</span></li>
+                <li class="opportunity-point"><span>Programmes de formation JCI internationaux</span></li>
+                <li class="opportunity-point"><span>Mentorat par des membres expérimentés</span></li>
+              </ul>
+              <a href="evenements.html" class="opportunity-link mt-8">
+                <span>Voir nos formations</span>
+                <span class="opportunity-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+            <figure class="opportunity-media">
+              <img src="assets/images/a-propos/4.png" alt="Séance de formation et de renforcement de compétences pour de jeunes membres" class="opportunity-image" width="1672" height="941" loading="lazy" />
+            </figure>
+          </article>
+
+          <div class="opportunity-separator" aria-hidden="true"></div>
+
+          <!-- 05 — COMMUNAUTÉ -->
+          <article data-reveal class="opportunity-feature group" style="--accent: #8B5CF6; --accent-soft: rgba(139, 92, 246, 0.12);">
+            <div class="opportunity-copy">
+              <span class="opportunity-number" aria-hidden="true">05</span>
+              <div class="opportunity-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3c0 9-6 15-15 15H4v-2c0-9 6-15 15-15h2v2z"/><path d="M9 17c2-4 5-7 11-9"/></svg>
+              </div>
+              <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-marine mb-3">Servir votre communauté</h3>
+              <p class="text-ardoise/75 leading-relaxed mb-5">Contribuez directement au développement de Comé à travers des actions concrètes en environnement, éducation et santé.</p>
+              <ul class="space-y-3 mb-2">
+                <li class="opportunity-point"><span>Reboisement et actions environnementales</span></li>
+                <li class="opportunity-point"><span>Soutien scolaire et sensibilisation des jeunes</span></li>
+                <li class="opportunity-point"><span>Un impact direct et durable sur votre communauté</span></li>
+              </ul>
+              <a href="projets.html" class="opportunity-link mt-8">
+                <span>Découvrir nos actions</span>
+                <span class="opportunity-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+            <figure class="opportunity-media relative">
+              <img src="assets/images/a-propos/5.png" alt="Membres de JCI Comé Excellence plantant des arbres lors d'une action de reboisement" class="opportunity-image" width="900" height="675" loading="lazy" />
+              <div class="absolute bottom-4 right-4 bg-white/95 backdrop-blur rounded-xl shadow-card px-4 py-2.5 flex items-center gap-2.5 z-20">
+                <span class="font-mono text-lg font-semibold text-marine">3000+</span>
+                <span class="text-xs text-ardoise/60 leading-tight">Vies<br/>impactées</span>
+              </div>
+            </figure>
+          </article>
+
+          <div class="opportunity-separator" aria-hidden="true"></div>
+
+          <!-- 06 — DÉVELOPPEMENT PERSONNEL -->
+          <article data-reveal class="opportunity-feature group lg:[&_.opportunity-copy]:order-2 lg:[&_.opportunity-media]:order-1" style="--accent: #EC4899; --accent-soft: rgba(236, 72, 153, 0.12);">
+            <div class="opportunity-copy">
+              <span class="opportunity-number" aria-hidden="true">06</span>
+              <div class="opportunity-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="22"/><line x1="2" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="22" y2="12"/></svg>
+              </div>
+              <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-marine mb-3">Grandir personnellement</h3>
+              <p class="text-ardoise/75 leading-relaxed mb-5">Gagnez en confiance, en aisance à l'oral et en capacité à sortir de votre zone de confort, projet après projet.</p>
+              <ul class="space-y-3 mb-2">
+                <li class="opportunity-point"><span>Prise de parole en public renforcée</span></li>
+                <li class="opportunity-point"><span>Confiance en soi construite par l'action</span></li>
+                <li class="opportunity-point"><span>Un cadre bienveillant pour progresser</span></li>
+              </ul>
+              <a href="adhesion.html" class="opportunity-link mt-8">
+                <span>Je rejoins la JCI</span>
+                <span class="opportunity-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+            <figure class="opportunity-media">
+              <img src="assets/images/projets/academie-entrepreneurs.jpg" alt="Jeune membre de JCI Comé Excellence gagnant en confiance lors d'un atelier" class="opportunity-image" width="900" height="675" loading="lazy" />
+            </figure>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. NOS CONVICTIONS ===== -->
+    <section class="bg-fondclair py-16 sm:py-24">
+      <div class="container-site">
+        <div data-reveal class="text-center max-w-xl mx-auto mb-14">
+          <span class="text-azur-dark text-sm font-medium uppercase tracking-wide">Ce qui nous unit</span>
+          <h2 class="section-title mt-3">Nos convictions</h2>
+          <p class="text-ardoise/70 mt-4">Héritées du Crédo de la JCI, ces convictions guident chaque décision, chaque projet et chaque interaction au sein de notre organisation.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div data-reveal style="transition-delay:0ms" class="group relative p-8 rounded-2xl border border-ardoise/10 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+            <div class="absolute top-0 left-0 w-full h-1 bg-azur scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+            <div class="w-14 h-14 rounded-2xl bg-azur/10 text-azur-dark flex items-center justify-center mb-6 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3v18"/><path d="M5 4h12l-2.5 4L17 12H5"/></svg>
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-marine mb-2">Leadership</h3>
+            <p class="text-sm text-ardoise/70 leading-relaxed">Développer la capacité à initier, décider et mobiliser autour d'une cause commune.</p>
+          </div>
+          <div data-reveal style="transition-delay:90ms" class="group relative p-8 rounded-2xl border border-ardoise/10 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+            <div class="absolute top-0 left-0 w-full h-1 bg-turquoise scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+            <div class="w-14 h-14 rounded-2xl bg-turquoise/20 text-vert-dark flex items-center justify-center mb-6 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M2 18.5h20"/></svg>
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-marine mb-2">Innovation</h3>
+            <p class="text-sm text-ardoise/70 leading-relaxed">Imaginer et expérimenter des solutions nouvelles face aux défis concrets de notre communauté.</p>
+          </div>
+          <div data-reveal style="transition-delay:180ms" class="group relative p-8 rounded-2xl border border-ardoise/10 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+            <div class="absolute top-0 left-0 w-full h-1 bg-vert scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+            <div class="w-14 h-14 rounded-2xl bg-vert/10 text-vert-dark flex items-center justify-center mb-6 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 6.5a3.2 3.2 0 0 1 0 6.3"/><path d="M22 19.5c0-3-2.4-5-5.5-5.6"/></svg>
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-marine mb-2">Fraternité</h3>
+            <p class="text-sm text-ardoise/70 leading-relaxed">Construire des liens durables entre des jeunes de tous horizons autour de valeurs partagées.</p>
+          </div>
+          <div data-reveal style="transition-delay:270ms" class="group relative p-8 rounded-2xl border border-ardoise/10 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+            <div class="absolute top-0 left-0 w-full h-1 bg-marine scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+            <div class="w-14 h-14 rounded-2xl bg-marine/10 text-marine flex items-center justify-center mb-6 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A4.5 4.5 0 0 0 17.5 4 4.5 4.5 0 0 0 12 7a4.5 4.5 0 0 0-5.5-3A4.5 4.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg>
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-marine mb-2">Engagement</h3>
+            <p class="text-sm text-ardoise/70 leading-relaxed">Agir avec responsabilité et constance pour produire un changement mesurable à Comé.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. QUI PEUT NOUS REJOINDRE ===== -->
+    <section class="bg-white py-16 sm:py-24">
+      <div class="container-site">
+        <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+          <div data-reveal class="relative max-w-lg mx-auto w-full">
+            <div class="absolute -bottom-5 -right-5 w-full h-full rounded-2xl bg-turquoise/15 hidden sm:block" aria-hidden="true"></div>
+            <img
+              src="assets/images/actualites/ag.jpg"
+              alt="Assemblée générale de membres de JCI Comé Excellence"
+              class="relative w-full rounded-2xl object-cover shadow-card ring-1 ring-marine/5 aspect-[5/4]"
+              width="900" height="681" loading="lazy"
+            />
+          </div>
+          <div data-reveal style="transition-delay:100ms">
+            <span class="text-azur-dark text-sm font-medium uppercase tracking-wide">Rejoignez-nous</span>
+            <h2 class="section-title mt-3 mb-6">Qui peut nous rejoindre ?</h2>
+            <p class="text-ardoise/80 leading-relaxed mb-8">
+              Aucun profil type n'est requis, seulement l'envie d'apprendre et de servir. Que vous soyez étudiant, entrepreneur ou salarié, il y a une place pour vous à la JCI.
+            </p>
+            <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-4 mb-9">
+              <li class="flex items-center gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-vert/10 text-vert-dark flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ardoise/85 font-medium">18 à 40 ans</span></li>
+              <li class="flex items-center gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-vert/10 text-vert-dark flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ardoise/85 font-medium">Étudiant</span></li>
+              <li class="flex items-center gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-vert/10 text-vert-dark flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ardoise/85 font-medium">Entrepreneur</span></li>
+              <li class="flex items-center gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-vert/10 text-vert-dark flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ardoise/85 font-medium">Salarié</span></li>
+              <li class="flex items-center gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-vert/10 text-vert-dark flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ardoise/85 font-medium">Porteur de projet</span></li>
+              <li class="flex items-center gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-vert/10 text-vert-dark flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ardoise/85 font-medium">Passionné de leadership</span></li>
+              <li class="flex items-center gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-vert/10 text-vert-dark flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ardoise/85 font-medium">Envie de servir</span></li>
+              <li class="flex items-center gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-vert/10 text-vert-dark flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="text-ardoise/85 font-medium">Prêt à apprendre</span></li>
+            </ul>
+            <a href="adhesion.html" class="btn-cta">Je rejoins la JCI</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. CE QUE VOUS ALLEZ DÉVELOPPER ===== -->
+    <section class="bg-fondclair py-16 sm:py-24">
+      <div class="container-site">
+        <div data-reveal class="text-center max-w-xl mx-auto mb-14">
+          <span class="text-azur-dark text-sm font-medium uppercase tracking-wide">Vos compétences</span>
+          <h2 class="section-title mt-3">Ce que vous allez développer</h2>
+          <p class="text-ardoise/70 mt-4">Un parcours JCI vous fait progresser sur des compétences concrètes, utiles dans votre vie personnelle et professionnelle.</p>
+        </div>
+        <div data-reveal class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-azur/10 text-azur-dark mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18"/><path d="M5 4h12l-2.5 4L17 12H5"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Leadership</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-turquoise/20 text-vert-dark mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Communication</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-vert/10 text-vert-dark mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Prise de parole</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-marine/10 text-marine mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Management</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-azur/10 text-azur-dark mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M3 10h18"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Gestion de projet</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-turquoise/20 text-vert-dark mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 6.5a3.2 3.2 0 0 1 0 6.3"/><path d="M22 19.5c0-3-2.4-5-5.5-5.6"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Travail d'équipe</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-vert/10 text-vert-dark mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Confiance en soi</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-marine/10 text-marine mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Entrepreneuriat</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-azur/10 text-azur-dark mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Réseau international</p>
+          </div>
+          <div class="group bg-white rounded-2xl p-6 text-center border border-ardoise/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-turquoise/20 text-vert-dark mb-4 transition-transform duration-300 group-hover:scale-110"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A4.5 4.5 0 0 0 17.5 4 4.5 4.5 0 0 0 12 7a4.5 4.5 0 0 0-5.5-3A4.5 4.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></span>
+            <p class="text-sm font-semibold text-marine">Citoyenneté</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10. CTA FINAL ===== -->
+    <section class="relative overflow-hidden bg-marine py-20 sm:py-28">
+      <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-azur/20 blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute -left-16 -bottom-16 w-64 h-64 rounded-full bg-turquoise/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
+        <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" class="w-full h-full">
+          <circle cx="1300" cy="80" r="160" fill="none" stroke="#4FD1C5" stroke-width="1"/>
+          <circle cx="140" cy="420" r="200" fill="none" stroke="#1E96FC" stroke-width="1"/>
+        </svg>
+      </div>
+      <div data-reveal class="relative container-site text-center">
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-turquoise mb-6">
+          <span class="h-1.5 w-1.5 rounded-full bg-turquoise"></span>
+          Rejoignez-nous
+        </span>
+        <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-5 max-w-3xl mx-auto leading-tight">Et si votre histoire commençait ici ?</h2>
+        <p class="text-white/70 max-w-xl mx-auto mb-10 text-lg">Chaque grand leader a commencé par un premier pas. Le vôtre peut commencer aujourd'hui, à Comé, avec nous.</p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a href="adhesion.html" class="btn-cta">Je deviens membre</a>
+          <a href="contact.html" class="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-heading font-medium px-6 py-3 rounded-lg hover:bg-white/10 transition-colors duration-200">Nous contacter</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-marine-dark text-white/70">
+    <div class="container-site py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div>
+        <p class="font-heading text-2xl font-semibold text-white mb-1">JCI <span class="text-turquoise">Comé Excellence</span></p>
+        <p class="text-sm leading-relaxed mb-5">Jeunes leaders engagés pour le développement de Comé, Mono, Bénin.</p>
+        <div class="flex items-center gap-3">
+          <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.17 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.77 8.44-4.94 8.44-9.94Z"/></svg></a>
+          <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+          <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21h-4V9Z"/></svg></a>
+          <a href="#" aria-label="YouTube" class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.6-.46-5.3a2.94 2.94 0 0 0-2.07-2.08C18.78 4.15 12 4.15 12 4.15s-6.78 0-8.47.47A2.94 2.94 0 0 0 1.46 6.7C1 8.4 1 12 1 12s0 3.6.46 5.3a2.94 2.94 0 0 0 2.07 2.08c1.69.47 8.47.47 8.47.47s6.78 0 8.47-.47a2.94 2.94 0 0 0 2.07-2.08C23 15.6 23 12 23 12Zm-13.5 3.2V8.8L15.5 12l-6 3.2Z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Navigation</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html" class="hover:text-white transition-colors">Accueil</a></li>
+          <li><a href="a-propos.html" class="text-white font-medium">À propos</a></li>
+          <li><a href="bureau-membres.html" class="hover:text-white transition-colors">Bureau &amp; membres</a></li>
+          <li><a href="projets.html" class="hover:text-white transition-colors">Projets &amp; actions</a></li>
+          <li><a href="evenements.html" class="hover:text-white transition-colors">Événements</a></li>
+          <li><a href="actualites.html" class="hover:text-white transition-colors">Actualités</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Ressources</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="galerie.html" class="hover:text-white transition-colors">Galerie photos &amp; vidéos</a></li>
+          <li><a href="partenaires.html" class="hover:text-white transition-colors">Partenaires</a></li>
+          <li><a href="adhesion.html" class="hover:text-white transition-colors">Adhésion</a></li>
+          <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Restons en contact</h3>
+        <ul class="space-y-3 text-sm mb-6">
+          <li>Comé, Département du Mono, Bénin</li>
+          <li>+229 00 00 00 00</li>
+          <li>contact@jcicomeexcellence.org</li>
+        </ul>
+        <form data-newsletter-form class="flex gap-2">
+          <label for="footer-email" class="sr-only">Adresse email</label>
+          <input id="footer-email" type="email" required placeholder="Votre email" class="min-w-0 flex-1 rounded-lg bg-white/10 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-turquoise" />
+          <button type="submit" class="flex-shrink-0 bg-turquoise text-marine font-medium text-sm px-4 py-2 rounded-lg hover:bg-turquoise-light transition-colors">S'abonner</button>
+        </form>
+        <p data-newsletter-message class="text-xs text-turquoise mt-2 hidden">Merci ! Votre inscription a bien été prise en compte.</p>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="container-site py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
+        <p>© <span data-current-year>2026</span> JCI Comé Excellence. Tous droits réservés. Membre de JCI Bénin.</p>
+        <div class="flex items-center gap-5">
+          <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+          <a href="#" class="hover:text-white transition-colors">Politique de confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/components/icons.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

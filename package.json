@@ -1,0 +1,13 @@
+{
+  "name": "jci-come-excellence",
+  "version": "1.0.0",
+  "description": "Site officiel de JCI Comé Excellence",
+  "scripts": {
+    "dev": "tailwindcss -i ./css/tailwind-input.css -o ./css/output.css --watch",
+    "build": "tailwindcss -i ./css/tailwind-input.css -o ./css/output.css --minify",
+    "serve": "npx serve ."
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}
