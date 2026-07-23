@@ -23,7 +23,7 @@ const BUREAU_DATA = [
     prenom: "Noélie",
     nom: "KPOHLO",
     role: "Vice Présidente Exécutive",
-    roleShort: "VP Exécutive",
+    roleShort: "Vice-Présidente Exécutive",
     classe: "vice-president",
     niveau: 2,
     photo: "assets/images/bureau/noelie-kpohlo.jpg"
@@ -53,7 +53,7 @@ const BUREAU_DATA = [
     prenom: "Claudel",
     nom: "AMEDJROVI",
     role: "Immediate Past Président",
-    roleShort: "IPP 2025",
+    roleShort: "Immediate Past Président",
     classe: "membre",
     niveau: 3,
     annee: 2025,
@@ -74,8 +74,8 @@ const BUREAU_DATA = [
     id: "valerie-nikoue",
     prenom: "Valérie",
     nom: "NIKOUE",
-    role: "VP Affaires & Entrepreneuriat",
-    roleShort: "VP Entrepreneuriat",
+    role: "Vice-Présidente Affaires & Entrepreneuriat",
+    roleShort: "Vice-Présidente Affaires",
     classe: "membre",
     niveau: 3,
     photo: "assets/images/bureau/valerie-nikoue.jpg"
@@ -84,8 +84,8 @@ const BUREAU_DATA = [
     id: "joviale-gnacadja",
     prenom: "Joviale Marcelle",
     nom: "GNACADJA",
-    role: "VP Communication & Marketing",
-    roleShort: "VP Communication",
+    role: "Vice-Présidente Communication & Marketing",
+    roleShort: "Vice-Présidente Communication",
     classe: "membre",
     niveau: 3,
     photo: "assets/images/bureau/joviale-gnacadja.jpg"
@@ -94,8 +94,8 @@ const BUREAU_DATA = [
     id: "leroi-zanda",
     prenom: "Leroi Trésor",
     nom: "ZANDA",
-    role: "VP Formation",
-    roleShort: "VP Formation",
+    role: "Vice-Président Formation",
+    roleShort: "Vice-Président Formation",
     classe: "membre",
     niveau: 3,
     photo: "assets/images/bureau/leroi-zanda.jpg"
@@ -104,8 +104,8 @@ const BUREAU_DATA = [
     id: "carmel-lokossoudjin",
     prenom: "Carmel Espero",
     nom: "LOKOSSOUDJIN",
-    role: "VP Relations Extérieures",
-    roleShort: "VP Relations Ext.",
+    role: "Vice-Président Relations Extérieures",
+    roleShort: "Vice-Président Relations Ext.",
     classe: "membre",
     niveau: 4,
     photo: "assets/images/bureau/carmel-lokossoudjin.jpg"
@@ -168,7 +168,7 @@ const PASTS_DATA = [
   { annee: 2021, prenom: "Germain",        nom: "KAKPOSSA",  theme: "Agissons ensemble pour plus d'impact durable", photo: "assets/images/pasts/germain-kakpossa.jpg" },
   { annee: 2022, prenom: "Wilfried",       nom: "EHAKO",     theme: "Redynamisons l'excellence", photo: "assets/images/pasts/wilfried-ehako.jpg" },
   { annee: 2023, prenom: "Placide",        nom: "KOCOU",     theme: "Vivons l'excellence", photo: "assets/images/pasts/placide-cokou.jpg" },
-  { annee: 2024, prenom: "C. R. José",     nom: "EDOH",      theme: "Rise Together", photo: "assets/images/pasts/reynard-edoh.jpg" },
+  { annee: 2024, prenom: "Coovi Reynald José",     nom: "EDOH",      theme: "Rise Together", photo: "assets/images/pasts/reynard-edoh.jpg" },
   { annee: 2025, prenom: "Claudel",        nom: "AMEDJROVI", theme: "Let's Excel Together", photo: "assets/images/pasts/claudel-amedjrovi.jpg" },
   { annee: 2026, prenom: "Herman",         nom: "GBODOSSOU", theme: "Ravivons l'amitié.", statut: "Président actuel", photo: "assets/images/bureau/herman-gbodossou.jpg" }
 ];
