@@ -98,6 +98,11 @@
 
     /* ─── Scroll smooth ─── */
     html { scroll-behavior: smooth; }
+
+    /* ─── Lightbox galerie ─── */
+    #art-lightbox { transition: opacity .25s ease; }
+    #art-lightbox.hidden { display: none; }
+    #art-lightbox-img { max-height: 82vh; max-width: 92vw; }
   </style>
 </head>
 <body class="font-body text-ardoise bg-fondclair antialiased">
@@ -118,9 +123,7 @@
         <a href="a-propos.html"       class="nav-link text-marine text-sm">À propos</a>
         <a href="bureau-membres.html" class="nav-link text-marine text-sm">Bureau &amp; membres</a>
         <a href="projets.html"        class="nav-link text-marine text-sm">Projets</a>
-        <a href="evenements.html"     class="nav-link text-marine text-sm">Événements</a>
         <a href="actualites.html"     class="nav-link text-azur-dark after:w-full text-sm">Actualités</a>
-        <a href="galerie.html"        class="nav-link text-marine text-sm">Galerie</a>
         <a href="partenaires.html"    class="nav-link text-marine text-sm">Partenaires</a>
         <a href="contact.html"        class="nav-link text-marine text-sm">Contact</a>
       </nav>
@@ -144,9 +147,7 @@
       <a href="a-propos.html"       class="text-2xl font-heading font-medium py-3 border-b border-white/10">À propos</a>
       <a href="bureau-membres.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10">Bureau &amp; membres</a>
       <a href="projets.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10">Projets</a>
-      <a href="evenements.html"     class="text-2xl font-heading font-medium py-3 border-b border-white/10">Événements</a>
       <a href="actualites.html"     class="text-2xl font-heading font-medium py-3 border-b border-white/10 text-turquoise">Actualités</a>
-      <a href="galerie.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10">Galerie</a>
       <a href="partenaires.html"    class="text-2xl font-heading font-medium py-3 border-b border-white/10">Partenaires</a>
       <a href="contact.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10">Contact</a>
       <a href="adhesion.html" class="btn-primary mt-6 w-fit">Adhérer</a>
@@ -191,9 +192,10 @@
           <span class="text-white/70">Article</span>
         </nav>
 
-        <!-- Badge catégorie -->
-        <div class="mb-5">
+        <!-- Badge catégorie + type -->
+        <div class="mb-5 flex flex-wrap items-center gap-2">
           <span id="art-cat-badge" class="inline-block text-xs font-semibold px-3 py-1.5 rounded-full bg-white/15 text-white/80"></span>
+          <span id="art-type-badge" class="hidden inline-block text-xs font-semibold px-3 py-1.5 rounded-full bg-white/10 text-white/60 border border-white/20"></span>
         </div>
 
         <!-- Titre -->
@@ -222,6 +224,13 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
             <span id="art-meta-time"></span>
           </span>
+          <span id="art-meta-lieu-wrap" class="hidden flex items-center gap-x-6 gap-y-2">
+            <span class="w-1 h-1 rounded-full bg-white/25 hidden sm:block" aria-hidden="true"></span>
+            <span class="flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span id="art-meta-lieu"></span>
+            </span>
+          </span>
         </div>
 
         <!-- Tags -->
@@ -239,11 +248,18 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg>
           Retour aux actualités
         </a>
-        <button id="art-share-btn" type="button"
-                class="inline-flex items-center gap-2 text-sm font-medium text-ardoise/60 hover:text-marine transition-colors px-3 py-1.5 rounded-lg hover:bg-ardoise/5">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-          Partager
-        </button>
+        <div class="flex items-center gap-2">
+          <button id="art-gallery-btn" type="button"
+                  class="hidden inline-flex items-center gap-2 text-sm font-medium text-ardoise/60 hover:text-marine transition-colors px-3 py-1.5 rounded-lg hover:bg-ardoise/5">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="15" height="15" rx="2"/><path d="m3 15 3.5-3.5a1.5 1.5 0 0 1 2 0L14 17"/><path d="M14 12.5l1.3-1.3a1.5 1.5 0 0 1 2 0L21 15"/></svg>
+            Voir la galerie
+          </button>
+          <button id="art-share-btn" type="button"
+                  class="inline-flex items-center gap-2 text-sm font-medium text-ardoise/60 hover:text-marine transition-colors px-3 py-1.5 rounded-lg hover:bg-ardoise/5">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            Partager
+          </button>
+        </div>
       </div>
     </div>
 
@@ -257,18 +273,6 @@
         <aside class="hidden lg:block" aria-label="Sommaire de l'article">
           <div id="art-toc-wrapper">
             <div id="art-toc" class="hidden"></div>
-
-            <!-- Mini carte organisation -->
-            <div data-reveal class="mt-6 rounded-2xl border border-ardoise/10 bg-white overflow-hidden">
-              <div class="bg-gradient-to-br from-marine to-azur-dark p-4">
-                <p class="font-heading text-sm font-bold text-white">JCI Comé Excellence</p>
-                <p class="text-xs text-white/60 mt-0.5">Section active depuis 2013</p>
-              </div>
-              <div class="p-4 space-y-2">
-                <a href="adhesion.html" class="block text-center text-xs font-semibold py-2 px-3 rounded-lg bg-azur text-white hover:bg-azur-dark transition-colors">Rejoindre la section</a>
-                <a href="contact.html"  class="block text-center text-xs font-medium py-2 px-3 rounded-lg border border-ardoise/15 text-ardoise/65 hover:bg-fondclair transition-colors">Nous contacter</a>
-              </div>
-            </div>
           </div>
         </aside>
 
@@ -311,27 +315,6 @@
                 </button>
               </form>
               <p id="sidebar-nl-msg" class="hidden text-xs text-turquoise mt-2">✓ Merci !</p>
-            </div>
-
-            <!-- Autres actions -->
-            <div data-reveal data-delay="1" class="rounded-2xl border border-ardoise/10 bg-white p-4 space-y-2">
-              <p class="font-heading text-xs font-semibold text-ardoise/40 uppercase tracking-wide mb-3">Explorer</p>
-              <a href="projets.html"    class="flex items-center gap-2 text-xs text-ardoise/65 hover:text-marine transition-colors py-1.5">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
-                Nos projets
-              </a>
-              <a href="evenements.html" class="flex items-center gap-2 text-xs text-ardoise/65 hover:text-marine transition-colors py-1.5">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
-                Événements à venir
-              </a>
-              <a href="galerie.html"    class="flex items-center gap-2 text-xs text-ardoise/65 hover:text-marine transition-colors py-1.5">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                Galerie photos
-              </a>
-              <a href="adhesion.html"   class="flex items-center gap-2 text-xs text-ardoise/65 hover:text-marine transition-colors py-1.5">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                Adhérer à JCI
-              </a>
             </div>
           </div>
         </aside>
@@ -380,56 +363,120 @@
 
   </main>
 
-  <!-- ═══ FOOTER ═══ -->
+  <!-- ===== FOOTER ===== -->
   <footer class="bg-marine-dark text-white/70">
-    <div class="container-site py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div class="container-site py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
       <div>
-        <p class="font-heading text-xl font-semibold text-white mb-1">JCI <span class="text-turquoise">Comé Excellence</span></p>
-        <p class="text-sm leading-relaxed mb-4">Jeunes leaders engagés pour le développement de Comé, Mono, Bénin.</p>
-        <div class="flex gap-2.5">
-          <a href="#" aria-label="Facebook"  class="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.17 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.77 8.44-4.94 8.44-9.94Z"/></svg></a>
-          <a href="#" aria-label="Instagram" class="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
-          <a href="#" aria-label="LinkedIn"  class="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21h-4V9Z"/></svg></a>
+        <p class="font-heading text-2xl font-semibold text-white mb-1">JCI <span class="text-turquoise">Comé
+            Excellence</span></p>
+        <p class="text-sm leading-relaxed mb-5">Former - Agir - Impacter - Inspirer</p>
+        <div class="flex items-center gap-3">
+          <a href="https://www.facebook.com/JCI.ComeExcellence?locale=fr_FR" target="_blank" aria-label="Facebook"
+            class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg
+              width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.17 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.77 8.44-4.94 8.44-9.94Z" />
+            </svg></a>
+          <a href="https://www.instagram.com/jcicomeexcellence/" target="_blank" aria-label="Instagram"
+            class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg
+              width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="3.8" />
+              <circle cx="17.2" cy="6.8" r="1" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/jci-com%C3%A9-excellence-3124ab263/" target="_blank"
+            aria-label="LinkedIn"
+            class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg
+              width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21h-4V9Z" />
+            </svg></a>
+          <a href="https://www.youtube.com/@JCIcomeexcellence" target="_blank" aria-label="YouTube"
+            class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg
+              width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23 12s0-3.6-.46-5.3a2.94 2.94 0 0 0-2.07-2.08C18.78 4.15 12 4.15 12 4.15s-6.78 0-8.47.47A2.94 2.94 0 0 0 1.46 6.7C1 8.4 1 12 1 12s0 3.6.46 5.3a2.94 2.94 0 0 0 2.07 2.08c1.69.47 8.47.47 8.47.47s6.78 0 8.47-.47a2.94 2.94 0 0 0 2.07-2.08C23 15.6 23 12 23 12Zm-13.5 3.2V8.8L15.5 12l-6 3.2Z" />
+            </svg></a>
         </div>
       </div>
+
       <div>
-        <h3 class="font-heading text-xs font-medium text-white uppercase tracking-wide mb-4">Navigation</h3>
-        <ul class="space-y-2.5 text-sm">
-          <li><a href="index.html"          class="hover:text-white transition-colors">Accueil</a></li>
-          <li><a href="a-propos.html"       class="hover:text-white transition-colors">À propos</a></li>
-          <li><a href="projets.html"        class="hover:text-white transition-colors">Projets</a></li>
-          <li><a href="evenements.html"     class="hover:text-white transition-colors">Événements</a></li>
-          <li><a href="actualites.html"     class="text-white font-medium">Actualités</a></li>
+        <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Navigation</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="index.html" class="hover:text-white transition-colors">Accueil</a></li>
+          <li><a href="a-propos.html" class="hover:text-white transition-colors">À propos</a></li>
+          <li><a href="bureau-membres.html" class="hover:text-white transition-colors">Bureau &amp; membres</a></li>
+          <li><a href="projets.html" class="hover:text-white transition-colors">Projets &amp; actions</a></li>
+          <li><a href="actualites.html" class="hover:text-white transition-colors">Actualités</a></li>
         </ul>
       </div>
+
       <div>
-        <h3 class="font-heading text-xs font-medium text-white uppercase tracking-wide mb-4">Ressources</h3>
-        <ul class="space-y-2.5 text-sm">
-          <li><a href="galerie.html"     class="hover:text-white transition-colors">Galerie</a></li>
+        <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Ressources</h3>
+        <ul class="space-y-3 text-sm">
           <li><a href="partenaires.html" class="hover:text-white transition-colors">Partenaires</a></li>
-          <li><a href="adhesion.html"    class="hover:text-white transition-colors">Adhésion</a></li>
-          <li><a href="contact.html"     class="hover:text-white transition-colors">Contact</a></li>
+          <li><a href="adhesion.html" class="hover:text-white transition-colors">Adhésion</a></li>
+          <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
         </ul>
       </div>
+
       <div>
-        <h3 class="font-heading text-xs font-medium text-white uppercase tracking-wide mb-4">Contact</h3>
-        <ul class="space-y-2.5 text-sm">
+        <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Restons en contact</h3>
+        <ul class="space-y-3 text-sm mb-6">
           <li>Comé, Département du Mono, Bénin</li>
-          <li>+229 00 00 00 00</li>
-          <li>contact@jcicomeexcellence.org</li>
+          <li>+229 01 96 32 03 68</li>
+          <li>jcicomeexcellence13@gmail.com</li>
         </ul>
+        <form data-newsletter-form class="flex gap-2">
+          <label for="newsletter-email" class="sr-only">Adresse email</label>
+          <input id="newsletter-email" type="email" required placeholder="Votre email"
+            class="min-w-0 flex-1 rounded-lg bg-white/10 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-turquoise" />
+          <button type="submit"
+            class="flex-shrink-0 bg-turquoise text-marine font-medium text-sm px-4 py-2 rounded-lg hover:bg-turquoise-light transition-colors">S'abonner</button>
+        </form>
+        <p data-newsletter-message class="text-xs text-turquoise mt-2 hidden">Merci ! Votre inscription a bien été prise
+          en compte.</p>
       </div>
     </div>
-    <div class="border-t border-white/10">
-      <div class="container-site py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/40">
-        <p>© <span data-current-year>2026</span> JCI Comé Excellence. Tous droits réservés.</p>
-        <div class="flex gap-5">
-          <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
-          <a href="#" class="hover:text-white transition-colors">Confidentialité</a>
-        </div>
-      </div>
+
+<div class="border-t border-white/10">
+  <div class="container-site py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
+    <p>© <span data-current-year>2026</span> JCI Comé Excellence. Tous droits réservés.</p>
+    <p class="text-center text-white/40">
+      Réalisé par <a href="https://wa.me/+22996320368" target="_blank" class="text-turquoise font-medium hover:text-turquoise-light transition-colors">DigiSaim</a>
+    </p>
+    <div class="flex items-center gap-5">
+      <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+      <a href="#" class="hover:text-white transition-colors">Politique de confidentialité</a>
     </div>
+  </div>
+</div>
   </footer>
+
+  <!-- ═══ LIGHTBOX GALERIE ═══ -->
+  <div id="art-lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse photo"
+       class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4">
+    <div id="art-lightbox-backdrop" class="absolute inset-0 bg-marine/90 backdrop-blur-sm"></div>
+
+    <button id="art-lightbox-close" type="button" aria-label="Fermer la galerie"
+            class="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <button id="art-lightbox-prev" type="button" aria-label="Photo précédente"
+            class="absolute left-2 sm:left-6 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <button id="art-lightbox-next" type="button" aria-label="Photo suivante"
+            class="absolute right-2 sm:right-6 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+
+    <figure class="relative z-[5] flex flex-col items-center gap-4">
+      <img id="art-lightbox-img" src="" alt="" class="rounded-lg shadow-2xl object-contain" />
+      <figcaption id="art-lightbox-counter" class="text-white/70 text-sm font-mono"></figcaption>
+    </figure>
+  </div>
 
   <!-- ═══ SCRIPTS ═══ -->
   <script src="js/data/actualites-data.js"></script>

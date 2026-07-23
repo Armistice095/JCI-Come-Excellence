@@ -27,6 +27,15 @@ function portraitImg(prenom, nom, photo, opts) {
   );
 }
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 /* ---------- ONGLETS (avec curseur glissant) ---------- */
 function initTabs() {
   const tabs = document.querySelectorAll("[data-tab-btn]");
@@ -77,6 +86,8 @@ function initTabs() {
 function renderPresident(p) {
   const el = document.getElementById("president-card");
   if (!el || !p) return;
+  const theme = escapeHtml(p.theme || p.devise);
+  const annee = p.annee || 2026;
   el.innerHTML =
     '<div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-marine via-marine to-azur-dark shadow-2xl">' +
       '<div class="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-white/5 pointer-events-none" aria-hidden="true"></div>' +
@@ -91,16 +102,15 @@ function renderPresident(p) {
         '<div class="relative p-8 sm:p-10 lg:p-12 flex flex-col justify-center">' +
           '<span class="inline-flex items-center gap-2 self-start bg-turquoise/20 text-turquoise text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">' +
             '<span class="w-2 h-2 rounded-full bg-turquoise inline-block animate-pulse"></span>' +
-            'Président 2026' +
+            'Président ' + annee +
           '</span>' +
-          '<h2 class="font-heading text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-2">' + p.prenom + ' <span class="text-turquoise">' + p.nom + '</span></h2>' +
-          '<p class="text-white/60 text-sm mb-6">Comité Exécutif Local — JCI Comé Excellence</p>' +
-          (p.devise
-            ? '<blockquote class="border-l-2 border-turquoise/60 pl-4 italic text-white/85 text-lg sm:text-xl font-heading font-medium mb-6 max-w-md">« ' + p.devise + ' »</blockquote>'
-            : '') +
-          '<p class="text-white/70 text-sm leading-relaxed max-w-lg">' +
-            'Chef de file du bureau exécutif, il orchestre la stratégie de l\'organisation, préside les délibérations et représente JCI Comé Excellence auprès des partenaires locaux, nationaux et du réseau JCI international.' +
-          '</p>' +
+          '<h2 class="font-heading text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-4">' + escapeHtml(p.prenom) + ' <span class="text-turquoise">' + escapeHtml(p.nom) + '</span></h2>' +
+          (theme
+            ? '<div class="max-w-xl rounded-2xl border border-white/10 bg-white/10 p-5">' +
+                '<p class="text-[11px] font-semibold uppercase tracking-widest text-turquoise mb-2">Thème du mandat</p>' +
+                '<blockquote class="italic text-white/90 text-lg sm:text-xl font-heading font-medium leading-relaxed">« ' + theme + ' »</blockquote>' +
+              '</div>'
+            : '')
         '</div>' +
       '</div>' +
     '</div>';
@@ -123,6 +133,7 @@ function tierLabel(text) {
 /* Carte d'un membre (niveaux 2, 3 et 4) */
 function memberCard(m, delay, opts) {
   opts = opts || {};
+  const isIpp = /past/i.test(m.role || "");
   const gradients = [
     "from-azur to-azur-dark", "from-marine to-azur-dark", "from-vert to-vert-dark",
     "from-turquoise to-vert-dark", "from-azur-dark to-marine", "from-vert-dark to-marine"
@@ -131,17 +142,25 @@ function memberCard(m, delay, opts) {
   const accent = opts.accent
     ? '<div class="h-1.5 w-full bg-gradient-to-r from-azur to-turquoise"></div>'
     : '';
+  const theme = m.theme
+    ? '<p class="mt-3 text-xs leading-relaxed text-ardoise/70 bg-fondclair rounded-xl px-3 py-2">« ' + escapeHtml(m.theme) + ' »</p>'
+    : '';
+  const badge = isIpp && m.annee
+    ? '<span class="absolute top-3 left-3 bg-white/95 backdrop-blur text-marine text-xs font-mono font-bold px-2.5 py-1 rounded-full">' + m.annee + '</span>'
+    : '';
   return (
     '<div data-reveal style="transition-delay:' + delay + 'ms" ' +
-         'class="group bg-white rounded-2xl border border-ardoise/10 overflow-hidden shadow-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">' +
+         'class="group bg-white rounded-2xl border ' + (isIpp ? 'border-turquoise/40 ring-1 ring-turquoise/15 ' : 'border-ardoise/10 ') + 'overflow-hidden shadow-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">' +
       accent +
       '<div class="relative aspect-[4/5] overflow-hidden">' +
         '<div class="absolute inset-0 flex items-center justify-center font-heading font-bold text-white text-2xl ' + grad + '">' + initiales(m.prenom, m.nom) + '</div>' +
-        (m.photo ? '<img src="' + m.photo + '" alt="' + m.prenom + ' ' + m.nom + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-hover:rotate-1" onerror="this.remove()" />' : '') +
+        (m.photo ? '<img src="' + escapeHtml(m.photo) + '" alt="' + escapeHtml(m.prenom + ' ' + m.nom) + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-hover:rotate-1" onerror="this.remove()" />' : '') +
+        badge +
       '</div>' +
       '<div class="p-4 sm:p-5 text-center">' +
-        '<h3 class="font-heading text-sm sm:text-base font-bold text-marine leading-snug">' + m.prenom + '<br/>' + m.nom + '</h3>' +
-        '<span class="inline-block mt-2 text-[11px] sm:text-xs font-medium text-ardoise/60 bg-fondclair px-3 py-1 rounded-full leading-snug">' + m.roleShort + '</span>' +
+        '<h3 class="font-heading text-sm sm:text-base font-bold text-marine leading-snug">' + escapeHtml(m.prenom) + '<br/>' + escapeHtml(m.nom) + '</h3>' +
+        '<span class="inline-block mt-2 text-[11px] sm:text-xs font-medium ' + (isIpp ? 'text-vert-dark bg-turquoise/15' : 'text-ardoise/60 bg-fondclair') + ' px-3 py-1 rounded-full leading-snug">' + escapeHtml(m.roleShort) + '</span>' +
+        theme +
       '</div>' +
     '</div>'
   );
@@ -175,7 +194,7 @@ function renderBureauHierarchy(list) {
   if (elCadres) {
     elCadres.innerHTML =
       tierLabel("Coordination") +
-      '<div class="grid grid-cols-2 sm:grid-cols-4 gap-5">' +
+      '<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">' +
         cadres.map(function (m, i) { return memberCard(m, i * 70); }).join("") +
       '</div>';
   }
@@ -206,17 +225,20 @@ function renderPastsGrid(list) {
   el.innerHTML = list.slice().reverse().map(function (p, i) {
     const delay = (i % 4) * 70;
     const grad = gradients[i % gradients.length];
+    const isCurrent = p.statut === "Président actuel";
     return (
       '<div data-reveal style="transition-delay:' + delay + 'ms" ' +
-           'class="group bg-white rounded-2xl border border-ardoise/10 overflow-hidden shadow-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">' +
+           'class="group bg-white rounded-2xl border ' + (isCurrent ? 'border-turquoise/50 ring-1 ring-turquoise/20 ' : 'border-ardoise/10 ') + 'overflow-hidden shadow-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">' +
         '<div class="relative aspect-[4/5] overflow-hidden">' +
           '<div class="absolute inset-0 flex items-center justify-center font-heading font-bold text-white text-2xl bg-gradient-to-br ' + grad + '">' + initiales(p.prenom, p.nom) + '</div>' +
-          (p.photo ? '<img src="' + p.photo + '" alt="' + p.prenom + ' ' + p.nom + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-hover:rotate-1" onerror="this.remove()" />' : '') +
+          (p.photo ? '<img src="' + escapeHtml(p.photo) + '" alt="' + escapeHtml(p.prenom + ' ' + p.nom) + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-hover:rotate-1" onerror="this.remove()" />' : '') +
           '<span class="absolute top-3 left-3 bg-white/95 backdrop-blur text-marine text-xs font-mono font-bold px-2.5 py-1 rounded-full">' + p.annee + '</span>' +
+          (isCurrent ? '<span class="absolute top-3 right-3 bg-turquoise text-marine text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">Actuel</span>' : '') +
         '</div>' +
-        '<div class="p-4 sm:p-5 text-center">' +
-          '<span class="text-[11px] font-semibold text-azur-dark uppercase tracking-wide">Past Président</span>' +
-          '<h3 class="font-heading text-sm sm:text-base font-bold text-marine leading-snug mt-1">' + p.prenom + '<br/>' + p.nom + '</h3>' +
+        '<div class="p-4 sm:p-5 text-center flex flex-col min-h-[190px]">' +
+          '<span class="text-[11px] font-semibold ' + (isCurrent ? 'text-vert-dark' : 'text-azur-dark') + ' uppercase tracking-wide">' + (isCurrent ? 'Président actuel' : 'Past Président') + '</span>' +
+          '<h3 class="font-heading text-sm sm:text-base font-bold text-marine leading-snug mt-1">' + escapeHtml(p.prenom) + '<br/>' + escapeHtml(p.nom) + '</h3>' +
+          '<p class="mt-3 text-xs leading-relaxed text-ardoise/70 bg-fondclair rounded-xl px-3 py-2 flex-1">« ' + escapeHtml(p.theme) + ' »</p>' +
         '</div>' +
       '</div>'
     );

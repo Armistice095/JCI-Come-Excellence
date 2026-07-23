@@ -15,10 +15,6 @@
   <style>
     .act-filter.active { background:#14123A; color:#fff; border-color:#14123A; }
     .act-card { transition: opacity .3s ease, transform .3s ease, box-shadow .25s ease; }
-    #act-modal { transition: opacity .25s ease; }
-    #act-modal.modal-hidden { opacity:0; pointer-events:none; }
-    #act-modal-panel { transition: transform .32s cubic-bezier(.22,1,.36,1), opacity .32s ease; }
-    #act-modal.modal-hidden #act-modal-panel { transform:translateY(28px); opacity:0; }
     .line-clamp-2 { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
     .line-clamp-3 { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 
@@ -49,9 +45,7 @@
         <a href="a-propos.html"       class="nav-link text-marine">À propos</a>
         <a href="bureau-membres.html" class="nav-link text-marine">Bureau &amp; membres</a>
         <a href="projets.html"        class="nav-link text-marine">Projets</a>
-        <a href="evenements.html"     class="nav-link text-marine">Événements</a>
         <a href="actualites.html"     class="nav-link text-azur-dark after:w-full" aria-current="page">Actualités</a>
-        <a href="galerie.html"        class="nav-link text-marine">Galerie</a>
         <a href="partenaires.html"    class="nav-link text-marine">Partenaires</a>
         <a href="contact.html"        class="nav-link text-marine">Contact</a>
       </nav>
@@ -74,9 +68,7 @@
       <a href="a-propos.html"       class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">À propos</a>
       <a href="bureau-membres.html" class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Bureau &amp; membres</a>
       <a href="projets.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Projets</a>
-      <a href="evenements.html"     class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Événements</a>
       <a href="actualites.html"     class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full text-turquoise">Actualités</a>
-      <a href="galerie.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Galerie</a>
       <a href="partenaires.html"    class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Partenaires</a>
       <a href="contact.html"        class="text-2xl font-heading font-medium py-3 border-b border-white/10 w-full">Contact</a>
       <a href="adhesion.html" class="btn-primary mt-6">Adhérer</a>
@@ -122,31 +114,13 @@
                 <span class="pulse-ring absolute inline-flex h-full w-full rounded-full bg-turquoise opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-turquoise"></span>
               </span>
-              Vie de l'organisation
+              Actualités & Actions de terrain
             </span>
             <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-white leading-[1.1] mb-6">
-              Nos dernières<br/><span class="text-turquoise">actualités</span>
+              Suivez l’<span class="text-turquoise">actualité</span> de la JCI Comé Excellence
             </h1>
             <p class="text-white/70 text-lg leading-relaxed max-w-xl">
-              Projets citoyens, distinctions, formations, partenariats — suivez en temps réel l'engagement de JCI Comé Excellence pour le développement de Comé et du Mono.
-            </p>
-          </div>
-
-          <!-- Capsule newsletter hero -->
-          <div class="bg-white/8 backdrop-blur-sm rounded-2xl border border-white/12 p-6 lg:p-8">
-            <p class="font-heading text-white font-semibold text-lg mb-1">Restez informé</p>
-            <p class="text-white/55 text-sm mb-5">Recevez nos actualités directement dans votre boîte mail.</p>
-            <form id="act-newsletter-form" class="flex flex-col sm:flex-row gap-3">
-              <label for="hero-email" class="sr-only">Adresse email</label>
-              <input id="hero-email" type="email" required placeholder="votre@email.com"
-                     class="flex-1 rounded-lg bg-white/10 border border-white/20 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-turquoise" />
-              <button type="submit" class="flex-shrink-0 bg-turquoise text-marine font-heading font-semibold text-sm px-5 py-3 rounded-lg hover:bg-turquoise-light transition-colors">
-                S'abonner
-              </button>
-            </form>
-            <p id="act-newsletter-msg" class="hidden text-xs text-turquoise mt-3 flex items-center gap-1.5">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              Merci ! Vous recevrez nos prochaines actualités.
+              Découvrez les initiatives, projets communautaires, formations, partenariats et événements qui rythment la vie de la JCI Comé Excellence. À travers chaque action, nous mobilisons les jeunes citoyens pour contribuer au développement durable de Comé, du Mono et du Bénin.
             </p>
           </div>
         </div>
@@ -189,21 +163,8 @@
         </div>
       </div>
 
-      <!-- Filtres catégories -->
-      <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtrer par catégorie">
-        <button class="act-filter active text-sm font-medium px-4 py-2 rounded-full border border-ardoise/20 text-ardoise/70 hover:bg-ardoise/5 transition-all"
-                data-filter="tous">Tous</button>
-        <button class="act-filter text-sm font-medium px-4 py-2 rounded-full border border-ardoise/20 text-ardoise/70 hover:bg-ardoise/5 transition-all"
-                data-filter="Événement">Événements</button>
-        <button class="act-filter text-sm font-medium px-4 py-2 rounded-full border border-ardoise/20 text-ardoise/70 hover:bg-ardoise/5 transition-all"
-                data-filter="Projet">Projets</button>
-        <button class="act-filter text-sm font-medium px-4 py-2 rounded-full border border-ardoise/20 text-ardoise/70 hover:bg-ardoise/5 transition-all"
-                data-filter="Formation">Formations</button>
-        <button class="act-filter text-sm font-medium px-4 py-2 rounded-full border border-ardoise/20 text-ardoise/70 hover:bg-ardoise/5 transition-all"
-                data-filter="Distinction">Distinctions</button>
-        <button class="act-filter text-sm font-medium px-4 py-2 rounded-full border border-ardoise/20 text-ardoise/70 hover:bg-ardoise/5 transition-all"
-                data-filter="Partenariat">Partenariats</button>
-      </div>
+      <!-- Filtres catégories — générés dynamiquement depuis les données par actualites.js -->
+      <div id="act-filters" class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtrer par catégorie"></div>
 
       <!-- Grille -->
       <div id="act-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -220,119 +181,97 @@
       </div>
     </section>
 
-    <!-- ===== CTA ADHÉSION ===== -->
-    <section class="bg-gradient-to-br from-marine to-azur-dark py-16 sm:py-20" aria-label="Rejoindre JCI Comé Excellence">
-      <div class="container-site text-center">
-        <span class="inline-block text-turquoise text-sm font-medium uppercase tracking-wide mb-4">Passez à l'action</span>
-        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white mb-5">
-          Écrivez la prochaine actualité<br class="hidden sm:block" /> avec nous
-        </h2>
-        <p class="text-white/65 max-w-xl mx-auto mb-8 text-lg leading-relaxed">
-          Rejoignez JCI Comé Excellence et devenez acteur du changement dans votre commune. Les leaders de demain se forment aujourd'hui.
-        </p>
-        <a href="adhesion.html" class="btn-primary bg-turquoise text-marine hover:bg-turquoise-light">
-          Adhérer à JCI Comé Excellence
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </a>
-      </div>
-    </section>
-
   </main>
 
   <!-- ===== FOOTER ===== -->
   <footer class="bg-marine-dark text-white/70">
     <div class="container-site py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
       <div>
-        <p class="font-heading text-2xl font-semibold text-white mb-1">JCI <span class="text-turquoise">Comé Excellence</span></p>
-        <p class="text-sm leading-relaxed mb-5">Jeunes leaders engagés pour le développement de Comé, Mono, Bénin.</p>
+        <p class="font-heading text-2xl font-semibold text-white mb-1">JCI <span class="text-turquoise">Comé
+            Excellence</span></p>
+        <p class="text-sm leading-relaxed mb-5">Former - Agir - Impacter - Inspirer</p>
         <div class="flex items-center gap-3">
-          <a href="#" aria-label="Facebook"  class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.17 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.77 8.44-4.94 8.44-9.94Z"/></svg></a>
-          <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
-          <a href="#" aria-label="LinkedIn"  class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21h-4V9Z"/></svg></a>
-          <a href="#" aria-label="YouTube"   class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.6-.46-5.3a2.94 2.94 0 0 0-2.07-2.08C18.78 4.15 12 4.15 12 4.15s-6.78 0-8.47.47A2.94 2.94 0 0 0 1.46 6.7C1 8.4 1 12 1 12s0 3.6.46 5.3a2.94 2.94 0 0 0 2.07 2.08c1.69.47 8.47.47 8.47.47s6.78 0 8.47-.47a2.94 2.94 0 0 0 2.07-2.08C23 15.6 23 12 23 12Zm-13.5 3.2V8.8L15.5 12l-6 3.2Z"/></svg></a>
+          <a href="https://www.facebook.com/JCI.ComeExcellence?locale=fr_FR" target="_blank" aria-label="Facebook"
+            class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg
+              width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.17 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.77 8.44-4.94 8.44-9.94Z" />
+            </svg></a>
+          <a href="https://www.instagram.com/jcicomeexcellence/" target="_blank" aria-label="Instagram"
+            class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg
+              width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="3.8" />
+              <circle cx="17.2" cy="6.8" r="1" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/jci-com%C3%A9-excellence-3124ab263/" target="_blank"
+            aria-label="LinkedIn"
+            class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg
+              width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.97V21h-4V9Z" />
+            </svg></a>
+          <a href="https://www.youtube.com/@JCIcomeexcellence" target="_blank" aria-label="YouTube"
+            class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"><svg
+              width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23 12s0-3.6-.46-5.3a2.94 2.94 0 0 0-2.07-2.08C18.78 4.15 12 4.15 12 4.15s-6.78 0-8.47.47A2.94 2.94 0 0 0 1.46 6.7C1 8.4 1 12 1 12s0 3.6.46 5.3a2.94 2.94 0 0 0 2.07 2.08c1.69.47 8.47.47 8.47.47s6.78 0 8.47-.47a2.94 2.94 0 0 0 2.07-2.08C23 15.6 23 12 23 12Zm-13.5 3.2V8.8L15.5 12l-6 3.2Z" />
+            </svg></a>
         </div>
       </div>
+
       <div>
         <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Navigation</h3>
         <ul class="space-y-3 text-sm">
-          <li><a href="index.html"          class="hover:text-white transition-colors">Accueil</a></li>
-          <li><a href="a-propos.html"       class="hover:text-white transition-colors">À propos</a></li>
+          <li><a href="index.html" class="hover:text-white transition-colors">Accueil</a></li>
+          <li><a href="a-propos.html" class="hover:text-white transition-colors">À propos</a></li>
           <li><a href="bureau-membres.html" class="hover:text-white transition-colors">Bureau &amp; membres</a></li>
-          <li><a href="projets.html"        class="hover:text-white transition-colors">Projets &amp; actions</a></li>
-          <li><a href="evenements.html"     class="hover:text-white transition-colors">Événements</a></li>
-          <li><a href="actualites.html"     class="text-white font-medium">Actualités</a></li>
+          <li><a href="projets.html" class="hover:text-white transition-colors">Projets &amp; actions</a></li>
+          <li><a href="actualites.html" class="hover:text-white transition-colors">Actualités</a></li>
         </ul>
       </div>
+
       <div>
         <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Ressources</h3>
         <ul class="space-y-3 text-sm">
-          <li><a href="galerie.html"     class="hover:text-white transition-colors">Galerie photos &amp; vidéos</a></li>
           <li><a href="partenaires.html" class="hover:text-white transition-colors">Partenaires</a></li>
-          <li><a href="adhesion.html"    class="hover:text-white transition-colors">Adhésion</a></li>
-          <li><a href="contact.html"     class="hover:text-white transition-colors">Contact</a></li>
+          <li><a href="adhesion.html" class="hover:text-white transition-colors">Adhésion</a></li>
+          <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
         </ul>
       </div>
+
       <div>
         <h3 class="font-heading text-sm font-medium text-white uppercase tracking-wide mb-5">Restons en contact</h3>
         <ul class="space-y-3 text-sm mb-6">
           <li>Comé, Département du Mono, Bénin</li>
-          <li>+229 00 00 00 00</li>
-          <li>contact@jcicomeexcellence.org</li>
+          <li>+229 01 96 32 03 68</li>
+          <li>jcicomeexcellence13@gmail.com</li>
         </ul>
+        <form data-newsletter-form class="flex gap-2">
+          <label for="newsletter-email" class="sr-only">Adresse email</label>
+          <input id="newsletter-email" type="email" required placeholder="Votre email"
+            class="min-w-0 flex-1 rounded-lg bg-white/10 border border-white/15 px-3 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-turquoise" />
+          <button type="submit"
+            class="flex-shrink-0 bg-turquoise text-marine font-medium text-sm px-4 py-2 rounded-lg hover:bg-turquoise-light transition-colors">S'abonner</button>
+        </form>
+        <p data-newsletter-message class="text-xs text-turquoise mt-2 hidden">Merci ! Votre inscription a bien été prise
+          en compte.</p>
       </div>
     </div>
-    <div class="border-t border-white/10">
-      <div class="container-site py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
-        <p>© <span data-current-year>2026</span> JCI Comé Excellence. Tous droits réservés. Membre de JCI Bénin.</p>
-        <div class="flex items-center gap-5">
-          <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
-          <a href="#" class="hover:text-white transition-colors">Politique de confidentialité</a>
-        </div>
-      </div>
-    </div>
-  </footer>
 
-  <!-- ===== MODALE ARTICLE COMPLET ===== -->
-  <div id="act-modal" role="dialog" aria-modal="true" aria-label="Article complet"
-       class="modal-hidden fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <!-- Fond -->
-    <div id="act-modal-backdrop" class="absolute inset-0 bg-marine/70 backdrop-blur-sm"></div>
-    <!-- Panel -->
-    <div id="act-modal-panel"
-         class="relative z-10 bg-fondclair w-full sm:max-w-2xl max-h-[90vh] sm:rounded-2xl overflow-y-auto shadow-2xl">
-
-      <!-- Bouton fermer -->
-      <button id="act-modal-close" type="button" aria-label="Fermer l'article"
-              class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-ardoise hover:bg-white transition-colors shadow-sm">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      </button>
-
-      <!-- Image -->
-      <div id="act-modal-image" class="aspect-[16/7] relative overflow-hidden rounded-t-2xl bg-gradient-to-br from-marine to-azur-dark"></div>
-
-      <!-- Corps -->
-      <div class="p-6 sm:p-8">
-        <!-- Méta -->
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-          <span id="act-modal-cat" class="text-xs font-semibold px-3 py-1 rounded-full bg-azur/10 text-azur-dark"></span>
-          <span class="flex items-center gap-1.5 text-xs text-ardoise/50">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
-            <span id="act-modal-date"></span>
-          </span>
-          <span class="flex items-center gap-1.5 text-xs text-ardoise/50">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span id="act-modal-auteur"></span>
-          </span>
-        </div>
-
-        <h2 id="act-modal-titre" class="font-heading text-xl sm:text-2xl font-bold text-marine mb-5 leading-snug"></h2>
-        <div id="act-modal-body" class="text-ardoise/75 leading-relaxed text-sm sm:text-base"></div>
-
-        <!-- Tags -->
-        <div id="act-modal-tags" class="flex flex-wrap gap-2 mt-6 pt-5 border-t border-ardoise/10 hidden"></div>
-      </div>
+<div class="border-t border-white/10">
+  <div class="container-site py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
+    <p>© <span data-current-year>2026</span> JCI Comé Excellence. Tous droits réservés.</p>
+    <p class="text-center text-white/40">
+      Réalisé par <a href="https://wa.me/+22996320368" target="_blank" class="text-turquoise font-medium hover:text-turquoise-light transition-colors">DigiSaim</a>
+    </p>
+    <div class="flex items-center gap-5">
+      <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+      <a href="#" class="hover:text-white transition-colors">Politique de confidentialité</a>
     </div>
   </div>
+</div>
+  </footer>
 
   <!-- ===== SCRIPTS ===== -->
   <script src="js/data/actualites-data.js"></script>

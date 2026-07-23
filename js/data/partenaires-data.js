@@ -25,13 +25,23 @@ const PARTENAIRES_TYPES = [
 
 const PARTENAIRES_DATA = [
   {
-    nom: "Mairie de Comé",
-    logo: "assets/images/partenaires/mairie-jeunes-come.jpg",
+    nom: "Mairie de  Comé",
+    logo: "assets/images/partenaires/mairie-come.jpg",
     site: "",
     type: "institutionnel",
     depuis: "2015",
     domaines: ["Assainissement", "Formation citoyenne", "Logistique"],
-    description: "Partenaire institutionnel historique de JCI Comé Excellence, la Mairie de Comé co-organise les campagnes citoyennes et met ses locaux à disposition.",
+    description: "Collectivité territoriale partenaire, la Mairie de Comé accompagne les initiatives citoyennes et le développement local portés par la JCI Comé Excellence.",
+    featured: true
+  },
+  {
+    nom: "Mairie des Jeunes de Comé",
+    logo: "assets/images/partenaires/mairie-jeunes-come.jpg",
+    site: "",
+    type: "institutionnel",
+    depuis: "2025",
+    domaines: ["Assainissement", "Formation citoyenne", "Logistique"],
+    description: "Partenaire de la jeunesse, la Mairie des Jeunes de Comé collabore à l'organisation d'actions citoyennes et de projets dédiés aux jeunes.",
     featured: true
   },
   {
@@ -41,7 +51,7 @@ const PARTENAIRES_DATA = [
     type: "ong",
     depuis: "2018",
     domaines: ["Santé communautaire", "Sensibilisation", "Prévention"],
-    description: "L'ONG APS Bénin accompagne JCI Comé Excellence sur les volets santé de ses projets citoyens.",
+    description: "Organisation engagée pour la santé communautaire, APS Bénin soutient les campagnes de sensibilisation et de prévention menées par la JCI Comé Excellence.",
     featured: true
   },
   {
@@ -51,8 +61,8 @@ const PARTENAIRES_DATA = [
     type: "media",
     depuis: "2016",
     domaines: ["Communication", "Sensibilisation", "Couverture médiatique"],
-    description: "Radio locale de référence du Mono, Radio FM Ahémé assure la couverture médiatique des actions de JCI Comé Excellence.",
-    featured: true
+    description: "Média de proximité, Radio FM Ahémé 87.7 valorise les actions de la JCI Comé Excellence auprès des populations du Mono.",
+
   },
   {
     nom: "DigiSaim",
@@ -61,7 +71,8 @@ const PARTENAIRES_DATA = [
     type: "entreprise",
     depuis: "2021",
     domaines: ["Numérique", "Formation", "Communication digitale"],
-    description: "Agence digitale béninoise, DigiSaim soutient JCI Comé Excellence dans sa transformation numérique et ses formations tech."
+    description: "Agence spécialisée dans le numérique, DigiSaim accompagne la JCI Comé Excellence dans sa communication digitale et ses projets d'innovation.",
+
   },
   {
     nom: "Gbogbé Art School Association",
@@ -70,7 +81,7 @@ const PARTENAIRES_DATA = [
     type: "education",
     depuis: "2020",
     domaines: ["Art", "Culture", "Jeunesse"],
-    description: "La GASA offre un espace d'expression artistique aux jeunes de Comé, en synergie avec les projets éducatifs JCI."
+    description: "Association culturelle engagée, GASA favorise l'expression artistique et l'épanouissement des jeunes à travers des initiatives communes."
   },
   {
     nom: "Villa Karo",
@@ -79,7 +90,7 @@ const PARTENAIRES_DATA = [
     type: "education",
     depuis: "2019",
     domaines: ["Culture", "Formation", "Échanges internationaux"],
-    description: "Centre culturel franco-béninois basé à Grand-Popo, Villa Karo enrichit les projets culturels de JCI Comé Excellence."
+    description: "Centre culturel de référence, Villa Karo encourage les échanges culturels et enrichit les projets artistiques et éducatifs de la JCI Comé Excellence."
   },
   {
     nom: "Providence HD",
@@ -88,7 +99,7 @@ const PARTENAIRES_DATA = [
     type: "entreprise",
     depuis: "2022",
     domaines: ["Santé", "Logistique", "Événementiel"],
-    description: "Entreprise de services médicaux et logistiques, Providence HD est partenaire opérationnel des campagnes de santé JCI."
+    description: "Entreprise de services, Providence HD apporte son expertise logistique et son accompagnement lors des actions communautaires de la JCI Comé Excellence."
   },
   {
     nom: "SHYB-TP",
@@ -97,7 +108,7 @@ const PARTENAIRES_DATA = [
     type: "entreprise",
     depuis: "2023",
     domaines: ["BTP", "Environnement", "Infrastructure"],
-    description: "Entreprise de travaux publics du Mono, SHYB-TP apporte son expertise technique aux projets d'aménagement de JCI."
+    description: "Entreprise spécialisée dans les travaux publics, SHYB-TP soutient les projets d'aménagement et les initiatives en faveur du cadre de vie."
   },
   {
     nom: "CCMA Nonvizohwé",
@@ -106,7 +117,7 @@ const PARTENAIRES_DATA = [
     type: "institutionnel",
     depuis: "2017",
     domaines: ["Gouvernance locale", "Citoyenneté", "Développement"],
-    description: "Conseil communal du Mono, le CCMA Nonvizohwé facilite l'ancrage institutionnel de JCI Comé Excellence."
+    description: "Acteur du développement local, le CCMA Nonvizohwé accompagne les initiatives citoyennes et renforce les collaborations institutionnelles."
   },
   {
     nom: "TA Studio",
@@ -115,7 +126,7 @@ const PARTENAIRES_DATA = [
     type: "media",
     depuis: "2022",
     domaines: ["Photo", "Vidéo", "Communication visuelle"],
-    description: "Studio de production audiovisuelle, TA Studio documente les événements et projets de JCI Comé Excellence."
+    description: "Studio de création audiovisuelle, TA Studio met en valeur les projets et les événements de la JCI Comé Excellence à travers l'image."
   },
   {
     nom: "VIA-ME",
@@ -124,7 +135,7 @@ const PARTENAIRES_DATA = [
     type: "ong",
     depuis: "2020",
     domaines: ["Entrepreneuriat", "Jeunesse", "Mentorat"],
-    description: "Structure d'accompagnement des jeunes entrepreneurs béninois, VIA-ME co-anime les sessions de l'Académie des entrepreneurs."
+    description: "Organisation dédiée à l'entrepreneuriat, VIA-ME accompagne les jeunes dans le développement de leurs compétences et de leurs projets."
   },
   {
     nom: "CAAD – Centre d'Aide Afrique",
@@ -133,7 +144,7 @@ const PARTENAIRES_DATA = [
     type: "ong",
     depuis: "2019",
     domaines: ["Développement", "Formation", "Solidarité"],
-    description: "ONG panafricaine de solidarité et développement, le CAAD apporte des ressources de formation aux projets JCI."
+    description: "Organisation engagée pour le développement et la solidarité, le CAAD soutient les actions de formation et les projets à impact communautaire."
   },
   {
     nom: "GI Mono",
@@ -142,52 +153,6 @@ const PARTENAIRES_DATA = [
     type: "institutionnel",
     depuis: "2016",
     domaines: ["Économie locale", "Emploi", "Formation professionnelle"],
-    description: "Groupement interprofessionnel du Mono, GI Mono connecte JCI Comé Excellence au tissu économique local."
-  }
-];
-
-/* Niveaux de partenariat (pour la section "Devenir partenaire") */
-const PARTENARIAT_NIVEAUX = [
-  {
-    id: "or",
-    label: "Partenaire Or",
-    couleur: "#B8860B",
-    couleurLight: "#FEF9E7",
-    icone: "star",
-    avantages: [
-      "Logo en grand format sur toutes les communications officielles",
-      "Mention systématique lors des événements JCI",
-      "Participation au comité consultatif annuel",
-      "Rapport d'impact annuel personnalisé",
-      "Accès prioritaire aux talents formés par JCI",
-      "Invitation aux événements privés du bureau"
-    ]
-  },
-  {
-    id: "argent",
-    label: "Partenaire Argent",
-    couleur: "#1E96FC",
-    couleurLight: "#EFF6FF",
-    icone: "shield",
-    avantages: [
-      "Logo sur le site web et les supports de communication",
-      "Mention lors des événements phares JCI",
-      "Accès aux formations ouvertes aux partenaires",
-      "Rapport d'impact semestriel",
-      "Visibilité sur les réseaux sociaux JCI"
-    ]
-  },
-  {
-    id: "bronze",
-    label: "Partenaire Bronze",
-    couleur: "#0F766E",
-    couleurLight: "#F0FDFA",
-    icone: "handshake",
-    avantages: [
-      "Logo sur le site web de JCI Comé Excellence",
-      "Mention dans les newsletters de l'organisation",
-      "Invitation aux événements publics JCI",
-      "Certificat de partenariat officiel JCI"
-    ]
+    description: "Acteur du développement économique local, GI Mono favorise les collaborations entre la JCI Comé Excellence et les entreprises du département."
   }
 ];

@@ -1,470 +1,585 @@
 /* =====================================================
-   article.js — Page de lecture immersive
-   Charge l'article depuis ACTUALITES_DATA via ?id=
+   article.js - page de lecture des actualites
    ===================================================== */
 
-/* ─── Couleurs par catégorie ─── */
-var CAT_TOKENS = {
-  "Événement":   { accent: "#1E96FC", light: "#EFF6FF", text: "#0C6FCB" },
-  "Distinction": { accent: "#0F766E", light: "#F0FDFA", text: "#0B544E" },
-  "Projet":      { accent: "#4FD1C5", light: "#F0FDFA", text: "#0F766E" },
-  "Formation":   { accent: "#14123A", light: "#F1F0F8", text: "#14123A" },
-  "Partenariat": { accent: "#0C6FCB", light: "#EFF6FF", text: "#0C6FCB" }
-};
+(function () {
+  "use strict";
 
-/* ─── Temps de lecture estimé ─── */
-function readingTime(corps) {
-  var totalWords = 0;
-  (corps || []).forEach(function (b) {
-    if (b.texte)   totalWords += b.texte.split(/\s+/).length;
-    if (b.items)   totalWords += b.items.join(" ").split(/\s+/).length;
-    if (b.attribution) totalWords += b.attribution.split(/\s+/).length;
-  });
-  var minutes = Math.max(1, Math.round(totalWords / 200));
-  return minutes + " min de lecture";
-}
-
-/* ─── SVG icônes inline ─── */
-var SVG = {
-  calendar: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>',
-  user:     '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
-  clock:    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
-  back:     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg>',
-  share:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>',
-  list:     '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>',
-  arrow_r:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>',
-  arrow_l:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg>',
-  quote_m:  '<svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1zm12 0c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>',
-  check:    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>'
-};
-
-/* ======================================================
-   RENDU DES BLOCS DE CONTENU
-   ====================================================== */
-function renderBlock(block, catToken) {
-  var accent = catToken.accent;
-
-  switch (block.type) {
-
-    case "intro":
-      return '<p class="art-intro text-lg sm:text-xl leading-relaxed text-ardoise/80 font-medium mb-8 pb-8 border-b border-ardoise/10">' + block.texte + '</p>';
-
-    case "h2":
-      return '<h2 id="' + (block.id || "") + '" class="art-h2 font-heading text-2xl sm:text-3xl font-bold text-marine mt-12 mb-4 leading-snug">' + block.texte + '</h2>';
-
-    case "p":
-      return '<p class="art-p text-base sm:text-[17px] leading-[1.85] text-ardoise/75 mb-5">' + block.texte + '</p>';
-
-    case "quote":
-      return (
-        '<blockquote class="art-quote relative my-10 pl-8 pr-6 py-6 rounded-r-xl border-l-4 bg-fondclair" style="border-color:' + accent + '">' +
-          '<span class="absolute top-4 right-5 opacity-10" style="color:' + accent + '">' + SVG.quote_m + '</span>' +
-          '<p class="text-lg sm:text-xl font-heading font-medium text-marine leading-relaxed mb-3 italic">' + block.texte + '</p>' +
-          (block.attribution ? '<footer class="text-sm text-ardoise/55 font-medium not-italic">— ' + block.attribution + '</footer>' : '') +
-        '</blockquote>'
-      );
-
-    case "list":
-      return (
-        '<ul class="art-list my-6 space-y-3">' +
-          block.items.map(function (item) {
-            return (
-              '<li class="flex gap-3 text-base text-ardoise/75 leading-relaxed">' +
-                '<span class="flex-shrink-0 mt-1.5 w-5 h-5 rounded-full flex items-center justify-center text-white" style="background:' + accent + '">' +
-                  SVG.check +
-                '</span>' +
-                '<span>' + item + '</span>' +
-              '</li>'
-            );
-          }).join("") +
-        '</ul>'
-      );
-
-    case "image":
-      return (
-        '<figure class="art-image my-10 -mx-4 sm:mx-0">' +
-          '<div class="relative overflow-hidden rounded-xl bg-ardoise/5 aspect-[16/9]">' +
-            '<div class="absolute inset-0 bg-gradient-to-br from-ardoise/5 to-ardoise/10 flex items-center justify-center text-ardoise/20">' +
-              '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>' +
-            '</div>' +
-            '<img src="' + block.src + '" alt="' + (block.alt || "") + '" loading="lazy" class="absolute inset-0 w-full h-full object-cover" onerror="this.parentElement.querySelector(\'div\').style.opacity=\'1\'; this.remove();" />' +
-          '</div>' +
-          (block.legende ? '<figcaption class="mt-3 text-sm text-ardoise/45 text-center leading-relaxed px-4 sm:px-0">' + block.legende + '</figcaption>' : '') +
-        '</figure>'
-      );
-
-    case "stats":
-      return (
-        '<div class="art-stats my-10 grid grid-cols-2 sm:grid-cols-4 gap-4">' +
-          block.items.map(function (s) {
-            return (
-              '<div class="rounded-xl p-4 text-center" style="background:' + catToken.light + '">' +
-                '<p class="font-heading text-2xl sm:text-3xl font-bold mb-1" style="color:' + accent + '">' + s.val + '</p>' +
-                '<p class="text-xs text-ardoise/60 leading-snug">' + s.label + '</p>' +
-              '</div>'
-            );
-          }).join("") +
-        '</div>'
-      );
-
-    case "callout":
-      return (
-        '<aside class="art-callout my-10 rounded-2xl p-6 border" style="background:' + catToken.light + '; border-color:' + accent + '33">' +
-          '<p class="flex items-center gap-2 font-heading font-bold text-sm uppercase tracking-wide mb-4" style="color:' + accent + '">' +
-            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4M12 16h.01"/></svg>' +
-            block.titre +
-          '</p>' +
-          '<ul class="space-y-2">' +
-            block.items.map(function (item) {
-              return (
-                '<li class="flex items-start gap-2.5 text-sm text-ardoise/75 leading-relaxed">' +
-                  '<span class="flex-shrink-0 mt-0.5" style="color:' + accent + '">' + SVG.check + '</span>' +
-                  item +
-                '</li>'
-              );
-            }).join("") +
-          '</ul>' +
-        '</aside>'
-      );
-
-    default:
-      return "";
-  }
-}
-
-/* ======================================================
-   TABLE DES MATIÈRES
-   ====================================================== */
-function buildToC(corps) {
-  var headings = (corps || []).filter(function (b) { return b.type === "h2"; });
-  if (headings.length < 2) return null;
-  return headings;
-}
-
-function renderToC(headings, catToken) {
-  var el = document.getElementById("art-toc");
-  if (!el || !headings) return;
-  el.innerHTML =
-    '<div class="art-toc-inner rounded-2xl border border-ardoise/10 bg-white overflow-hidden">' +
-      '<div class="flex items-center gap-2 px-4 py-3 border-b border-ardoise/8 bg-fondclair">' +
-        SVG.list +
-        '<span class="text-xs font-heading font-semibold text-marine uppercase tracking-wide">Sommaire</span>' +
-      '</div>' +
-      '<nav aria-label="Table des matières">' +
-        '<ul class="py-2">' +
-          headings.map(function (h, i) {
-            return (
-              '<li>' +
-                '<a href="#' + h.id + '" class="toc-link flex items-center gap-2 px-4 py-2.5 text-sm text-ardoise/65 hover:text-marine hover:bg-fondclair transition-colors group">' +
-                  '<span class="flex-shrink-0 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center text-white transition-colors" style="background:' + catToken.accent + '22; color:' + catToken.accent + '">' + (i + 1) + '</span>' +
-                  '<span class="leading-snug group-hover:underline underline-offset-2">' + h.texte + '</span>' +
-                '</a>' +
-              '</li>'
-            );
-          }).join("") +
-        '</ul>' +
-      '</nav>' +
-    '</div>';
-  el.classList.remove("hidden");
-}
-
-/* ======================================================
-   PROGRESSION DE LECTURE
-   ====================================================== */
-function initReadingProgress() {
-  var bar = document.getElementById("art-progress-bar");
-  var barMobile = document.getElementById("art-progress-mobile");
-  if (!bar) return;
-
-  function update() {
-    var article = document.getElementById("art-body");
-    if (!article) return;
-    var rect = article.getBoundingClientRect();
-    var total = article.offsetHeight - window.innerHeight;
-    var scrolled = Math.max(0, -rect.top);
-    var pct = total > 0 ? Math.min(100, (scrolled / total) * 100) : 0;
-    bar.style.height = pct + "%";
-    if (barMobile) barMobile.style.width = pct + "%";
-  }
-
-  window.addEventListener("scroll", update, { passive: true });
-  update();
-}
-
-/* ======================================================
-   HIGHLIGHTING DU SOMMAIRE EN SCROLL
-   ====================================================== */
-function initTocHighlight() {
-  var headings = Array.from(document.querySelectorAll(".art-h2[id]"));
-  if (!headings.length) return;
-
-  var links = document.querySelectorAll(".toc-link");
-
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        links.forEach(function (l) { l.classList.remove("toc-active"); });
-        var active = document.querySelector('.toc-link[href="#' + entry.target.id + '"]');
-        if (active) active.classList.add("toc-active");
-      }
-    });
-  }, { rootMargin: "-20% 0% -70% 0%" });
-
-  headings.forEach(function (h) { observer.observe(h); });
-}
-
-/* ======================================================
-   ARTICLES SIMILAIRES
-   ====================================================== */
-function renderRelated(currentId, categorie) {
-  var container = document.getElementById("art-related-grid");
-  if (!container || typeof ACTUALITES_DATA === "undefined") return;
-
-  var related = ACTUALITES_DATA
-    .filter(function (a) { return a.id !== currentId; })
-    .filter(function (a) { return a.categorie === categorie || true; }) // prend tous si pas assez
-    .slice(0, 3);
-
-  var catColors = {
-    "Événement":   "from-azur to-azur-dark",
-    "Distinction": "from-vert to-vert-dark",
-    "Projet":      "from-turquoise to-vert",
-    "Formation":   "from-marine to-azur-dark",
-    "Partenariat": "from-azur-dark to-marine"
+  var CATEGORY_TOKENS = {
+    "Vie associative": { accent: "#0F766E", soft: "#ECFDF5", text: "#0B544E" },
+    "Assemblée Générale": { accent: "#14123A", soft: "#F1F0F8", text: "#14123A" },
+    "Projet communautaire": { accent: "#1E96FC", soft: "#EFF6FF", text: "#0C6FCB" },
+    "Représentation institutionnelle": { accent: "#0F766E", soft: "#ECFDF5", text: "#0B544E" },
+    "Distinction": { accent: "#4FD1C5", soft: "#ECFDF5", text: "#0F766E" },
+    "Partenariat": { accent: "#0C6FCB", soft: "#EFF6FF", text: "#0C6FCB" }
   };
 
-  container.innerHTML = related.map(function (art) {
-    var grad = catColors[art.categorie] || "from-marine to-azur-dark";
-    var tok = CAT_TOKENS[art.categorie] || CAT_TOKENS["Événement"];
-    return (
-      '<a href="article.html?id=' + art.id + '" class="group block bg-white rounded-2xl border border-ardoise/10 overflow-hidden shadow-card hover:-translate-y-1 hover:shadow-xl transition-all duration-300">' +
-        '<div class="relative h-36 bg-gradient-to-br ' + grad + ' overflow-hidden">' +
-          (art.image ? '<img src="' + art.image + '" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()" />' : '') +
-          '<div class="absolute inset-0 bg-gradient-to-t from-marine/60 to-transparent"></div>' +
-          '<span class="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-white/90" style="color:' + tok.text + '">' + art.categorie + '</span>' +
-        '</div>' +
-        '<div class="p-4">' +
-          '<p class="text-xs text-ardoise/45 mb-1.5">' + art.date + '</p>' +
-          '<h3 class="font-heading text-sm font-bold text-marine leading-snug group-hover:text-azur-dark transition-colors line-clamp-2">' + art.titre + '</h3>' +
-        '</div>' +
-      '</a>'
-    );
-  }).join("");
-}
+  var TYPE_LABELS = {
+    "reportage-photo": "Reportage photo",
+    representation: "Représentation",
+    projet: "Projet"
+  };
 
-/* ======================================================
-   NAV PREV / NEXT
-   ====================================================== */
-function renderPrevNext(currentId) {
-  var all = ACTUALITES_DATA || [];
-  var idx = all.findIndex(function (a) { return a.id === currentId; });
-  var prev = idx > 0 ? all[idx - 1] : null;
-  var next = idx < all.length - 1 ? all[idx + 1] : null;
+  var ICONS = {
+    calendar: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>',
+    clock: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
+    map: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    user: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    image: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="15" height="15" rx="2"/><path d="m3 15 3.5-3.5a1.5 1.5 0 0 1 2 0L14 17"/><path d="M14 12.5l1.3-1.3a1.5 1.5 0 0 1 2 0L21 15"/></svg>',
+    check: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
+    arrow: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>',
+    arrowLeft: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg>'
+  };
 
-  var container = document.getElementById("art-prevnext");
-  if (!container) return;
+  var state = {
+    article: null,
+    sorted: [],
+    images: [],
+    lightboxIndex: 0,
+    activeHeadings: []
+  };
 
-  container.innerHTML =
-    '<div class="flex flex-col sm:flex-row gap-4">' +
-      (prev ?
-        '<a href="article.html?id=' + prev.id + '" class="group flex-1 flex items-center gap-4 bg-white rounded-2xl border border-ardoise/10 p-5 hover:border-azur/40 hover:shadow-md transition-all">' +
-          '<span class="flex-shrink-0 w-10 h-10 rounded-full border border-ardoise/15 flex items-center justify-center text-ardoise/50 group-hover:bg-azur group-hover:border-azur group-hover:text-white transition-all">' + SVG.arrow_l + '</span>' +
-          '<div class="min-w-0">' +
-            '<p class="text-xs text-ardoise/40 uppercase tracking-wide mb-0.5">Article précédent</p>' +
-            '<p class="font-heading text-sm font-semibold text-marine group-hover:text-azur-dark transition-colors leading-snug line-clamp-2">' + prev.titre + '</p>' +
-          '</div>' +
-        '</a>'
-      : '<div class="flex-1"></div>') +
+  function $(id) {
+    return document.getElementById(id);
+  }
 
-      (next ?
-        '<a href="article.html?id=' + next.id + '" class="group flex-1 flex items-center gap-4 bg-white rounded-2xl border border-ardoise/10 p-5 hover:border-azur/40 hover:shadow-md transition-all sm:flex-row-reverse sm:text-right">' +
-          '<span class="flex-shrink-0 w-10 h-10 rounded-full border border-ardoise/15 flex items-center justify-center text-ardoise/50 group-hover:bg-azur group-hover:border-azur group-hover:text-white transition-all">' + SVG.arrow_r + '</span>' +
-          '<div class="min-w-0">' +
-            '<p class="text-xs text-ardoise/40 uppercase tracking-wide mb-0.5">Article suivant</p>' +
-            '<p class="font-heading text-sm font-semibold text-marine group-hover:text-azur-dark transition-colors leading-snug line-clamp-2">' + next.titre + '</p>' +
-          '</div>' +
-        '</a>'
-      : '<div class="flex-1"></div>') +
-    '</div>';
-}
+  function escapeHTML(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 
-/* ======================================================
-   PARTAGE
-   ====================================================== */
-function initShare(titre) {
-  var btn = document.getElementById("art-share-btn");
-  if (!btn) return;
-  btn.addEventListener("click", function () {
-    if (navigator.share) {
-      navigator.share({ title: titre, url: window.location.href });
-    } else {
-      navigator.clipboard.writeText(window.location.href).then(function () {
-        btn.textContent = "Lien copié !";
-        setTimeout(function () { btn.innerHTML = SVG.share + " Partager"; }, 2000);
-      });
+  function toSlug(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "section";
+  }
+
+  function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
+
+  function getAuthor(article) {
+    if (article && article.auteur && typeof article.auteur === "object") {
+      return article.auteur;
     }
-  });
-}
-
-/* ======================================================
-   RENDU AUTEUR
-   ====================================================== */
-function renderAuteur(auteur, catToken) {
-  var el = document.getElementById("art-auteur-block");
-  if (!el || !auteur) return;
-  el.innerHTML =
-    '<div class="flex flex-col sm:flex-row gap-5 items-start sm:items-center">' +
-      '<div class="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br overflow-hidden border-2" style="border-color:' + catToken.accent + '33; background:' + catToken.light + '">' +
-        (auteur.avatar
-          ? '<img src="' + auteur.avatar + '" alt="' + auteur.nom + '" class="w-full h-full object-cover" onerror="this.remove()" />'
-          : '<div class="w-full h-full flex items-center justify-center font-heading font-bold text-xl" style="color:' + catToken.accent + '">' + auteur.nom.charAt(0) + '</div>') +
-      '</div>' +
-      '<div>' +
-        '<p class="font-heading font-bold text-marine text-lg mb-0.5">' + auteur.nom + '</p>' +
-        '<p class="text-sm font-medium mb-2" style="color:' + catToken.accent + '">' + auteur.role + '</p>' +
-        '<p class="text-sm text-ardoise/65 leading-relaxed">' + (auteur.bio || "") + '</p>' +
-      '</div>' +
-    '</div>';
-}
-
-/* ======================================================
-   HERO
-   ====================================================== */
-function renderHero(art, catToken) {
-  /* Barre de catégorie colorée */
-  var catBar = document.getElementById("art-cat-bar");
-  if (catBar) { catBar.style.background = catToken.accent; }
-
-  /* Badge catégorie */
-  var catBadge = document.getElementById("art-cat-badge");
-  if (catBadge) {
-    catBadge.textContent = art.categorie;
-    catBadge.style.background = catToken.light;
-    catBadge.style.color = catToken.text;
+    return {
+      nom: article && article.auteur ? article.auteur : "Commission Communication et Marketing",
+      role: "JCI Comé Excellence",
+      bio: "La Commission Communication et Marketing valorise les actions, les projets et les temps forts de la JCI Comé Excellence.",
+      avatar: "assets/images/icons/favicon-180.png"
+    };
   }
 
-  /* Image hero */
-  var heroImg = document.getElementById("art-hero-img");
-  if (heroImg && art.image) {
-    heroImg.src = art.image;
-    heroImg.alt = art.titre;
-    heroImg.onerror = function () { this.remove(); };
+  function getToken(category) {
+    return CATEGORY_TOKENS[category] || { accent: "#1E96FC", soft: "#EFF6FF", text: "#0C6FCB" };
   }
 
-  /* Titre */
-  document.getElementById("art-titre").textContent = art.titre;
+  function getSortedArticles() {
+    return getActualitesData().slice().sort(function (a, b) {
+      return String(b.dateISO || "").localeCompare(String(a.dateISO || ""));
+    });
+  }
 
-  /* Chapeau */
-  var chapeauEl = document.getElementById("art-chapeau");
-  if (chapeauEl) chapeauEl.textContent = art.chapeau || art.extrait;
+  function getActualitesData() {
+    if (typeof ACTUALITES_DATA !== "undefined" && Array.isArray(ACTUALITES_DATA)) {
+      return ACTUALITES_DATA;
+    }
+    return [];
+  }
 
-  /* Meta */
-  document.getElementById("art-meta-date").textContent = art.date;
-  document.getElementById("art-meta-auteur").textContent = typeof art.auteur === "object" ? art.auteur.nom : art.auteur;
-  document.getElementById("art-meta-time").textContent = readingTime(art.corps);
+  function getReadingTime(article) {
+    if (article.lecture) return article.lecture + " de lecture";
+    var words = [article.titre, article.chapeau, article.extrait].join(" ").split(/\s+/).length;
+    (article.corps || []).forEach(function (block) {
+      if (block.texte) words += block.texte.split(/\s+/).length;
+      if (block.items) words += block.items.join(" ").split(/\s+/).length;
+    });
+    return Math.max(1, Math.round(words / 220)) + " min de lecture";
+  }
 
-  /* Tags */
-  var tagsEl = document.getElementById("art-tags");
-  if (tagsEl && art.tags && art.tags.length) {
-    tagsEl.innerHTML = art.tags.map(function (t) {
-      return '<span class="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/70">#' + t + '</span>';
+  function collectImages(article) {
+    var seen = {};
+    var images = [];
+
+    function add(src, title) {
+      if (!src || seen[src]) return;
+      seen[src] = true;
+      images.push({ src: src, title: title || article.titre });
+    }
+
+    add(article.image || (article.gallery && article.gallery.cover), "Image principale");
+    ((article.gallery && article.gallery.photos) || []).forEach(function (src, index) {
+      add(src, "Photo " + (index + 1));
+    });
+    (article.corps || []).forEach(function (block) {
+      if (block.type === "gallery") {
+        (block.images || []).forEach(function (src, index) {
+          add(src, (block.titre || "Galerie") + " - " + (index + 1));
+        });
+      }
+      if (block.type === "image") add(block.src || block.image, block.caption || block.titre);
+    });
+
+    return images;
+  }
+
+  function imageHTML(src, alt, className) {
+    return '<img src="' + escapeHTML(src) + '" alt="' + escapeHTML(alt || "") + '" loading="lazy" class="' + className + '" onerror="this.closest(\'.js-image-wrap\') ? this.closest(\'.js-image-wrap\').remove() : this.remove()" />';
+  }
+
+  function setText(id, text) {
+    var el = $(id);
+    if (el) el.textContent = text || "";
+  }
+
+  function setVisible(id, visible) {
+    var el = $(id);
+    if (el) el.classList.toggle("hidden", !visible);
+  }
+
+  function renderHero(article) {
+    var token = getToken(article.categorie);
+    var author = getAuthor(article);
+    var image = article.image || (article.gallery && article.gallery.cover);
+    var heroImg = $("art-hero-img");
+
+    document.documentElement.style.setProperty("--art-accent", token.accent);
+    document.title = article.titre + " - JCI Comé Excellence";
+
+    var description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute("content", article.extrait || article.chapeau || article.titre);
+
+    if (heroImg) {
+      heroImg.src = image || "";
+      heroImg.alt = article.titre;
+    }
+
+    setText("art-cat-badge", article.categorie || "Actualité");
+    setText("art-type-badge", TYPE_LABELS[article.type] || "");
+    setVisible("art-type-badge", Boolean(TYPE_LABELS[article.type]));
+    setText("art-titre", article.titre);
+    setText("art-chapeau", article.chapeau || article.extrait || "");
+    setText("art-meta-auteur", author.nom);
+    setText("art-meta-date", article.date);
+    setText("art-meta-time", getReadingTime(article));
+    setText("art-meta-lieu", article.lieu || "");
+    setVisible("art-meta-lieu-wrap", Boolean(article.lieu));
+
+    var heroTags = $("art-tags");
+    if (heroTags) {
+      heroTags.innerHTML = (article.tags || []).slice(0, 8).map(function (tag) {
+        return '<span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 text-white/65 border border-white/10">#' + escapeHTML(tag) + "</span>";
+      }).join("");
+    }
+  }
+
+  function renderEventBlock(block) {
+    var items = [
+      ["Date", block.date, ICONS.calendar],
+      ["Lieu", block.lieu, ICONS.map],
+      ["Catégorie", block.categorie, ICONS.image],
+      ["Organisateur", block.organisateur, ICONS.user]
+    ].filter(function (item) { return item[1]; });
+
+    return '<section data-reveal class="my-8 grid sm:grid-cols-2 gap-3">' +
+      items.map(function (item) {
+        return '<div class="rounded-xl border border-ardoise/10 bg-white p-4 shadow-card">' +
+          '<div class="flex items-center gap-2 text-azur-dark mb-1">' + item[2] +
+          '<p class="text-[11px] uppercase tracking-wide font-semibold">' + escapeHTML(item[0]) + '</p></div>' +
+          '<p class="font-heading font-semibold text-marine">' + escapeHTML(item[1]) + '</p>' +
+        '</div>';
+      }).join("") +
+    '</section>';
+  }
+
+  function renderCalloutBlock(block) {
+    return '<aside data-reveal class="my-8 rounded-xl border-l-4 bg-white p-5 sm:p-6 shadow-card" style="border-color:var(--art-accent)">' +
+      (block.titre ? '<h3 class="font-heading text-base font-semibold text-marine mb-4">' + escapeHTML(block.titre) + '</h3>' : "") +
+      '<ul class="space-y-3">' +
+        (block.items || []).map(function (item) {
+          return '<li class="flex gap-3 text-sm leading-relaxed text-ardoise/70"><span class="mt-0.5 text-azur-dark">' + ICONS.check + '</span><span>' + escapeHTML(item) + '</span></li>';
+        }).join("") +
+      '</ul>' +
+    '</aside>';
+  }
+
+  function renderGalleryBlock(block, blockIndex) {
+    var images = block.images || [];
+    if (!images.length) return "";
+
+    return '<section data-reveal class="my-10">' +
+      (block.titre ? '<h3 class="font-heading text-lg font-semibold text-marine mb-4">' + escapeHTML(block.titre) + '</h3>' : "") +
+      '<div class="grid grid-cols-2 gap-3 sm:gap-4">' +
+        images.map(function (src, index) {
+          var globalIndex = state.images.findIndex(function (img) { return img.src === src; });
+          return '<button type="button" class="js-gallery-photo js-image-wrap group relative overflow-hidden rounded-xl bg-ardoise/10 aspect-[4/3] focus:outline-none focus:ring-2 focus:ring-azur-dark focus:ring-offset-2" data-index="' + globalIndex + '" aria-label="Ouvrir la photo ' + (index + 1) + ' de la galerie">' +
+            imageHTML(src, (block.titre || state.article.titre) + " " + (index + 1), "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105") +
+            '<span class="absolute inset-0 bg-marine/0 group-hover:bg-marine/20 transition-colors"></span>' +
+            '<span class="absolute bottom-2 right-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-marine opacity-0 shadow-card transition-opacity group-hover:opacity-100">' + ICONS.image + '</span>' +
+          '</button>';
+        }).join("") +
+      '</div>' +
+    '</section>';
+  }
+
+  function renderListBlock(block) {
+    return '<section data-reveal class="my-8">' +
+      (block.titre ? '<h3 class="font-heading text-lg font-semibold text-marine mb-4">' + escapeHTML(block.titre) + '</h3>' : "") +
+      '<ul class="art-list space-y-3">' +
+        (block.items || []).map(function (item) {
+          return '<li class="flex gap-3 rounded-xl bg-white border border-ardoise/10 px-4 py-3 text-ardoise/75 leading-relaxed"><span class="mt-1 text-azur-dark">' + ICONS.check + '</span><span>' + escapeHTML(item) + '</span></li>';
+        }).join("") +
+      '</ul>' +
+    '</section>';
+  }
+
+  function renderBodyBlock(block, index) {
+    if (!block || !block.type) return "";
+
+    if (block.type === "intro") {
+      return '<p data-reveal class="art-p text-xl leading-relaxed text-marine/85 font-medium mb-8">' + escapeHTML(block.texte) + '</p>';
+    }
+    if (block.type === "p") {
+      return '<p data-reveal class="art-p text-[1.03rem] leading-8 text-ardoise/80 mb-6">' + escapeHTML(block.texte) + '</p>';
+    }
+    if (block.type === "h2") {
+      var id = block.id || toSlug(block.texte);
+      state.activeHeadings.push({ id: id, title: block.texte });
+      return '<h2 id="' + escapeHTML(id) + '" data-reveal class="art-h2 text-2xl sm:text-3xl font-bold text-marine mt-12 mb-5">' + escapeHTML(block.texte) + '</h2>';
+    }
+    if (block.type === "gallery") return renderGalleryBlock(block, index);
+    if (block.type === "event") return renderEventBlock(block);
+    if (block.type === "callout") return renderCalloutBlock(block);
+    if (block.type === "list") return renderListBlock(block);
+    if (block.type === "quote") {
+      return '<blockquote data-reveal class="art-quote my-9 border-l-4 pl-5 sm:pl-6" style="border-color:var(--art-accent)">' +
+        '<p class="text-xl sm:text-2xl leading-relaxed text-marine italic">' + escapeHTML(block.texte || block.quote) + '</p>' +
+        (block.attribution ? '<cite class="mt-3 block text-sm text-ardoise/50 not-italic">' + escapeHTML(block.attribution) + '</cite>' : "") +
+      '</blockquote>';
+    }
+    if (block.type === "image") {
+      var src = block.src || block.image;
+      if (!src) return "";
+      return '<figure data-reveal class="js-image-wrap my-9">' +
+        '<button type="button" class="js-gallery-photo block w-full overflow-hidden rounded-xl bg-ardoise/10 focus:outline-none focus:ring-2 focus:ring-azur-dark focus:ring-offset-2" data-index="' + state.images.findIndex(function (img) { return img.src === src; }) + '">' +
+          imageHTML(src, block.alt || block.caption || state.article.titre, "w-full max-h-[520px] object-cover") +
+        '</button>' +
+        (block.caption ? '<figcaption class="mt-3 text-sm text-ardoise/50">' + escapeHTML(block.caption) + '</figcaption>' : "") +
+      '</figure>';
+    }
+
+    return "";
+  }
+
+  function renderBody(article) {
+    var body = $("art-body");
+    if (!body) return;
+    state.activeHeadings = [];
+
+    var blocks = article.corps && article.corps.length ? article.corps : [
+      { type: "intro", texte: article.chapeau || article.extrait },
+      { type: "p", texte: article.extrait }
+    ];
+
+    body.innerHTML = blocks.map(renderBodyBlock).join("");
+  }
+
+  function renderToc() {
+    var toc = $("art-toc");
+    if (!toc) return;
+
+    if (!state.activeHeadings.length) {
+      toc.classList.add("hidden");
+      return;
+    }
+
+    toc.className = "rounded-xl bg-white border border-ardoise/10 p-4 shadow-card";
+    toc.innerHTML = '<p class="text-xs font-semibold uppercase tracking-wide text-ardoise/40 mb-3">Sommaire</p>' +
+      '<nav class="space-y-1">' +
+        state.activeHeadings.map(function (heading, index) {
+          return '<a class="toc-link flex items-start gap-2 rounded-lg px-2 py-2 text-sm text-ardoise/55 hover:bg-ardoise/5 hover:text-marine transition-colors" href="#' + escapeHTML(heading.id) + '">' +
+            '<span class="mt-0.5 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-ardoise/8 text-[11px]">' + (index + 1) + '</span>' +
+            '<span>' + escapeHTML(heading.title) + '</span>' +
+          '</a>';
+        }).join("") +
+      '</nav>';
+  }
+
+  function renderAuthor(article) {
+    var author = getAuthor(article);
+    var block = $("art-auteur-block");
+    if (!block) return;
+
+    block.innerHTML =
+      '<div class="flex gap-4">' +
+        '<div class="js-image-wrap h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-ardoise/10">' +
+          imageHTML(author.avatar || "assets/images/icons/favicon-180.png", author.nom, "h-full w-full object-cover") +
+        '</div>' +
+        '<div>' +
+          '<h3 class="font-heading text-base font-semibold text-marine">' + escapeHTML(author.nom) + '</h3>' +
+          '<p class="text-sm font-medium text-azur-dark mb-2">' + escapeHTML(author.role || "JCI Comé Excellence") + '</p>' +
+          '<p class="text-sm leading-relaxed text-ardoise/65">' + escapeHTML(author.bio || "") + '</p>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderFooterTags(article) {
+    var footer = $("art-tags-footer");
+    if (!footer) return;
+    footer.innerHTML = (article.tags || []).map(function (tag) {
+      return '<span class="text-xs px-2.5 py-1 rounded-full bg-ardoise/8 text-ardoise/55">#' + escapeHTML(tag) + '</span>';
     }).join("");
   }
 
-  /* Barre de progression — couleur catégorie */
-  var prog = document.getElementById("art-progress-bar");
-  var progMobile = document.getElementById("art-progress-mobile");
-  if (prog) prog.style.background = catToken.accent;
-  if (progMobile) progMobile.style.background = catToken.accent;
-}
-
-/* ======================================================
-   CORPS DE L'ARTICLE
-   ====================================================== */
-function renderBody(art, catToken) {
-  var container = document.getElementById("art-body");
-  if (!container) return;
-  container.innerHTML = (art.corps || []).map(function (b) {
-    return renderBlock(b, catToken);
-  }).join("");
-}
-
-/* ======================================================
-   ANIMATIONS D'APPARITION
-   ====================================================== */
-function initReveal() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    document.querySelectorAll("[data-reveal]").forEach(function (el) { el.classList.add("is-visible"); });
-    return;
+  function articleCard(article) {
+    var image = article.image || (article.gallery && article.gallery.cover);
+    return '<a href="article.html?id=' + encodeURIComponent(article.id) + '" class="group block overflow-hidden rounded-xl border border-ardoise/10 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">' +
+      '<div class="js-image-wrap relative h-36 overflow-hidden bg-ardoise/10">' +
+        (image ? imageHTML(image, "", "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105") : "") +
+        '<div class="absolute inset-0 bg-gradient-to-t from-marine/45 to-transparent"></div>' +
+        '<span class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-marine">' + escapeHTML(article.categorie || "Actualité") + '</span>' +
+      '</div>' +
+      '<div class="p-4">' +
+        '<p class="mb-2 flex items-center gap-1.5 text-xs text-ardoise/45">' + ICONS.calendar + escapeHTML(article.date || "") + '</p>' +
+        '<h3 class="line-clamp-2 font-heading text-base font-semibold leading-snug text-marine transition-colors group-hover:text-azur-dark">' + escapeHTML(article.titre) + '</h3>' +
+        '<p class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-azur-dark">Lire l\'article ' + ICONS.arrow + '</p>' +
+      '</div>' +
+    '</a>';
   }
-  var obs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add("is-visible"); obs.unobserve(e.target); }
+
+  function renderRelated(article) {
+    var grid = $("art-related-grid");
+    if (!grid) return;
+
+    var byId = {};
+    state.sorted.forEach(function (item) { byId[item.id] = item; });
+
+    var selected = [];
+    (article.related || []).forEach(function (id) {
+      if (byId[id] && byId[id].id !== article.id && !selected.some(function (item) { return item.id === id; })) {
+        selected.push(byId[id]);
+      }
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll("[data-reveal]").forEach(function (el) { obs.observe(el); });
-}
 
-/* ======================================================
-   404 ARTICLE NON TROUVÉ
-   ====================================================== */
-function render404() {
-  document.getElementById("art-loading").classList.add("hidden");
-  document.getElementById("art-not-found").classList.remove("hidden");
-}
+    state.sorted.forEach(function (item) {
+      if (selected.length >= 3) return;
+      if (item.id !== article.id && item.categorie === article.categorie && !selected.some(function (x) { return x.id === item.id; })) {
+        selected.push(item);
+      }
+    });
 
-/* ======================================================
-   INIT
-   ====================================================== */
-document.addEventListener("DOMContentLoaded", function () {
-  if (typeof ACTUALITES_DATA === "undefined") return;
+    state.sorted.forEach(function (item) {
+      if (selected.length >= 3) return;
+      if (item.id !== article.id && !selected.some(function (x) { return x.id === item.id; })) selected.push(item);
+    });
 
-  /* Récupérer l'id depuis l'URL */
-  var params = new URLSearchParams(window.location.search);
-  var id = params.get("id");
+    grid.innerHTML = selected.slice(0, 3).map(articleCard).join("");
+  }
 
-  var art = id ? ACTUALITES_DATA.find(function (a) { return a.id === id; }) : null;
+  function renderPrevNext(article) {
+    var wrap = $("art-prevnext");
+    if (!wrap) return;
+    var index = state.sorted.findIndex(function (item) { return item.id === article.id; });
+    var prev = state.sorted[index + 1] || null;
+    var next = state.sorted[index - 1] || null;
 
-  /* Cacher le spinner */
-  var loadingEl = document.getElementById("art-loading");
-  if (loadingEl) loadingEl.classList.add("hidden");
+    function navCard(item, label, alignRight) {
+      if (!item) return '<div class="hidden sm:block"></div>';
+      return '<a href="article.html?id=' + encodeURIComponent(item.id) + '" class="group rounded-xl border border-ardoise/10 bg-fondclair p-5 transition-all hover:bg-white hover:shadow-card">' +
+        '<p class="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-ardoise/40 ' + (alignRight ? "justify-end" : "") + '">' +
+          (alignRight ? escapeHTML(label) + " " + ICONS.arrow : ICONS.arrowLeft + " " + escapeHTML(label)) +
+        '</p>' +
+        '<h3 class="font-heading text-base font-semibold leading-snug text-marine group-hover:text-azur-dark ' + (alignRight ? "text-right" : "") + '">' + escapeHTML(item.titre) + '</h3>' +
+      '</a>';
+    }
 
-  if (!art) { render404(); return; }
+    wrap.innerHTML = '<div class="grid gap-4 sm:grid-cols-2">' +
+      navCard(prev, "Article précédent", false) +
+      navCard(next, "Article suivant", true) +
+    '</div>';
+  }
 
-  var catToken = CAT_TOKENS[art.categorie] || CAT_TOKENS["Événement"];
-  var auteurObj = typeof art.auteur === "object" ? art.auteur : { nom: art.auteur, role: "", bio: "" };
+  function openLightbox(index) {
+    if (!state.images.length) return;
+    state.lightboxIndex = Math.max(0, Math.min(index || 0, state.images.length - 1));
+    updateLightbox();
+    setVisible("art-lightbox", true);
+    document.body.style.overflow = "hidden";
+  }
 
-  /* Méta page */
-  document.title = art.titre + " — JCI Comé Excellence";
-  var metaDesc = document.querySelector("meta[name='description']");
-  if (metaDesc) metaDesc.setAttribute("content", art.extrait);
+  function closeLightbox() {
+    setVisible("art-lightbox", false);
+    document.body.style.overflow = "";
+  }
 
-  /* Rendu */
-  renderHero(art, catToken);
-  renderBody(art, catToken);
+  function moveLightbox(direction) {
+    if (!state.images.length) return;
+    state.lightboxIndex = (state.lightboxIndex + direction + state.images.length) % state.images.length;
+    updateLightbox();
+  }
 
-  /* ToC */
-  var headings = buildToC(art.corps);
-  renderToC(headings, catToken);
+  function updateLightbox() {
+    var image = state.images[state.lightboxIndex];
+    var img = $("art-lightbox-img");
+    var counter = $("art-lightbox-counter");
+    if (img && image) {
+      img.src = image.src;
+      img.alt = image.title || state.article.titre;
+    }
+    if (counter) counter.textContent = (state.lightboxIndex + 1) + " / " + state.images.length;
+  }
 
-  /* Auteur */
-  renderAuteur(auteurObj, catToken);
+  function initLightbox() {
+    var galleryBtn = $("art-gallery-btn");
+    if (galleryBtn) {
+      galleryBtn.classList.toggle("hidden", state.images.length < 2);
+      galleryBtn.addEventListener("click", function () { openLightbox(0); });
+    }
 
-  /* Articles similaires */
-  renderRelated(art.id, art.categorie);
+    document.querySelectorAll(".js-gallery-photo").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var index = Number(button.getAttribute("data-index"));
+        openLightbox(Number.isFinite(index) && index >= 0 ? index : 0);
+      });
+    });
 
-  /* Prev / Next */
-  renderPrevNext(art.id);
+    var closeBtn = $("art-lightbox-close");
+    var backdrop = $("art-lightbox-backdrop");
+    var prev = $("art-lightbox-prev");
+    var next = $("art-lightbox-next");
+    if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+    if (backdrop) backdrop.addEventListener("click", closeLightbox);
+    if (prev) prev.addEventListener("click", function () { moveLightbox(-1); });
+    if (next) next.addEventListener("click", function () { moveLightbox(1); });
 
-  /* Partage */
-  initShare(art.titre);
+    document.addEventListener("keydown", function (event) {
+      var lightbox = $("art-lightbox");
+      if (!lightbox || lightbox.classList.contains("hidden")) return;
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") moveLightbox(-1);
+      if (event.key === "ArrowRight") moveLightbox(1);
+    });
+  }
 
-  /* Progression */
-  initReadingProgress();
+  function initShare(article) {
+    var button = $("art-share-btn");
+    if (!button) return;
 
-  /* Highlight ToC */
-  setTimeout(initTocHighlight, 200);
+    button.addEventListener("click", function () {
+      var payload = {
+        title: article.titre,
+        text: article.extrait || article.chapeau || article.titre,
+        url: window.location.href
+      };
 
-  /* Révélations scroll */
-  initReveal();
-});
+      if (navigator.share) {
+        navigator.share(payload).catch(function () {});
+        return;
+      }
+
+      navigator.clipboard.writeText(window.location.href).then(function () {
+        var old = button.innerHTML;
+        button.textContent = "Lien copié";
+        setTimeout(function () { button.innerHTML = old; }, 1600);
+      }).catch(function () {
+        window.prompt("Copier le lien de l'article", window.location.href);
+      });
+    });
+  }
+
+  function initProgress() {
+    var bar = $("art-progress-bar");
+    var mobile = $("art-progress-mobile");
+    function update() {
+      var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      var percent = Math.min(100, Math.max(0, (window.scrollY / max) * 100));
+      if (bar) bar.style.height = percent + "%";
+      if (mobile) mobile.style.width = percent + "%";
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  }
+
+  function initTocSpy() {
+    var links = Array.prototype.slice.call(document.querySelectorAll(".toc-link"));
+    if (!links.length || !("IntersectionObserver" in window)) return;
+
+    var byId = {};
+    links.forEach(function (link) { byId[link.getAttribute("href").slice(1)] = link; });
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (link) { link.classList.remove("toc-active"); });
+        var active = byId[entry.target.id];
+        if (active) active.classList.add("toc-active");
+      });
+    }, { rootMargin: "-18% 0px -70% 0px", threshold: 0.01 });
+
+    state.activeHeadings.forEach(function (heading) {
+      var el = document.getElementById(heading.id);
+      if (el) observer.observe(el);
+    });
+  }
+
+  function showArticlePage() {
+    setVisible("art-loading", false);
+    setVisible("art-not-found", false);
+    var hero = $("art-hero");
+    if (hero) hero.classList.remove("hidden");
+  }
+
+  function showNotFound() {
+    setVisible("art-loading", false);
+    setVisible("art-not-found", true);
+    document.querySelectorAll("main > :not(#art-loading):not(#art-not-found)").forEach(function (section) {
+      section.classList.add("hidden");
+    });
+  }
+
+  function boot() {
+    if (!getActualitesData().length) {
+      showNotFound();
+      return;
+    }
+
+    state.sorted = getSortedArticles();
+    var id = getParam("id") || (state.sorted[0] && state.sorted[0].id);
+    var article = state.sorted.find(function (item) { return item.id === id; });
+
+    if (!article) {
+      showNotFound();
+      return;
+    }
+
+    state.article = article;
+    state.images = collectImages(article);
+
+    renderHero(article);
+    renderBody(article);
+    renderToc();
+    renderAuthor(article);
+    renderFooterTags(article);
+    renderPrevNext(article);
+    renderRelated(article);
+    showArticlePage();
+
+    initLightbox();
+    initShare(article);
+    initProgress();
+    initTocSpy();
+
+    if (typeof window.initScrollReveal === "function") {
+      setTimeout(window.initScrollReveal, 30);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", boot);
+})();

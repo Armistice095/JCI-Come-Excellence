@@ -9,13 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (typeof PROJETS_DATA !== "undefined" && typeof renderProjects === "function") {
     renderProjects("projets-grid", PROJETS_DATA);
   }
-  if (typeof EVENEMENTS_DATA !== "undefined" && typeof renderFeaturedEvent === "function") {
-    var featured = EVENEMENTS_DATA.find(function (e) { return e.featured; });
-    renderFeaturedEvent("evenement-vedette", featured);
-  }
-  if (typeof EVENEMENTS_DATA !== "undefined" && typeof renderEventsList === "function") {
-    renderEventsList("evenements-liste", EVENEMENTS_DATA);
-  }
+
   if (typeof ACTUALITES_DATA !== "undefined" && typeof renderNews === "function") {
     renderNews("actualites-grid", ACTUALITES_DATA);
   }
