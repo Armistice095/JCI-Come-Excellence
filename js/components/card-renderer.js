@@ -107,9 +107,10 @@ function renderCardMedia(item) {
     ? '<img src="' + item.image + '" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()" />'
     : "";
   return (
-    '<div class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br ' + gradient + '">' +
+    '<div class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br ' + gradient + ' group/media">' +
       '<div class="absolute inset-0 flex items-center justify-center text-white/30">' + cardIcon(item.icone, 44) + '</div>' +
       imgTag +
+      '<div class="absolute inset-0 bg-gradient-to-t from-marine/65 via-transparent to-transparent opacity-80 pointer-events-none"></div>' +
       '<span class="absolute top-3 left-3 inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full bg-white/95 text-marine shadow-sm">' +
         '<span class="w-1.5 h-1.5 rounded-full ' + categorieDot(item.categorie) + '"></span>' + item.categorie +
       '</span>' +
@@ -126,8 +127,8 @@ function renderProjectCard(p, index) {
       '<div class="p-6 flex flex-col flex-1">' +
         '<h3 class="font-heading text-lg font-semibold text-marine mb-2">' + p.titre + '</h3>' +
         '<p class="text-sm text-ardoise/80 leading-relaxed mb-4 flex-1">' + p.description + '</p>' +
-        '<div class="flex items-center justify-between pt-3 border-t border-ardoise/10">' +
-          '<span class="text-xs font-mono text-ardoise/60">' + p.date + '</span>' +
+        '<div class="flex items-center justify-between pt-4 border-t border-ardoise/10">' +
+          '<span class="text-[0.7rem] font-mono uppercase tracking-wide text-ardoise/60">' + p.date + '</span>' +
           '<a href="projets.html#' + p.id + '" class="inline-flex items-center gap-1 text-sm font-medium text-azur-dark hover:gap-2 transition-all">En savoir plus ' + cardIcon("arrow-right", 16) + '</a>' +
         '</div>' +
       '</div>' +
@@ -157,14 +158,14 @@ function renderNewsCard(n, index) {
     metaBits.push('<span class="inline-flex items-center gap-1">' + cardIcon("map-pin", 12) + n.lieu + '</span>');
   }
   return (
-    '<article data-reveal style="transition-delay:' + delay + 'ms" class="bg-white rounded-xl2 border border-ardoise/10 overflow-hidden flex flex-col shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-azur/20">' +
+    '<article data-reveal style="transition-delay:' + delay + 'ms" class="group bg-white rounded-xl2 border border-ardoise/10 overflow-hidden flex flex-col shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-azur/20">' +
       renderCardMedia(n) +
       '<div class="p-6 flex flex-col flex-1">' +
         '<h3 class="font-heading text-base font-semibold text-marine mb-2 leading-snug">' + n.titre + '</h3>' +
         '<p class="text-sm text-ardoise/75 leading-relaxed mb-4 flex-1">' + n.extrait + '</p>' +
-        '<div class="flex items-center justify-between pt-3 border-t border-ardoise/10 gap-3">' +
-          '<span class="text-xs font-mono text-ardoise/60 flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">' + metaBits.join("") + '</span>' +
-          '<a href="article.html?id=' + n.id + '" class="text-sm font-medium text-azur-dark flex-shrink-0">Lire ' + cardIcon("arrow-right", 14) + '</a>' +
+        '<div class="flex items-center justify-between pt-4 border-t border-ardoise/10 gap-3">' +
+          '<span class="text-[0.7rem] font-mono text-ardoise/60 flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">' + metaBits.join("") + '</span>' +
+          '<a href="article.html?id=' + n.id + '" class="inline-flex items-center gap-1 text-sm font-semibold text-azur-dark flex-shrink-0 transition-all group-hover:gap-2">Lire ' + cardIcon("arrow-right", 14) + '</a>' +
         '</div>' +
       '</div>' +
     '</article>'
