@@ -29,7 +29,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/mairie-come.jpg",
     site: "",
     type: "institutionnel",
-    depuis: "2015",
+    depuis: "2013",
     domaines: ["Assainissement", "Formation citoyenne", "Logistique"],
     description: "Collectivité territoriale partenaire, la Mairie de Comé accompagne les initiatives citoyennes et le développement local portés par la JCI Comé Excellence.",
     featured: true
@@ -39,7 +39,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/mairie-jeunes-come.jpg",
     site: "",
     type: "institutionnel",
-    depuis: "2025",
+    depuis: "2022",
     domaines: ["Assainissement", "Formation citoyenne", "Logistique"],
     description: "Partenaire de la jeunesse, la Mairie des Jeunes de Comé collabore à l'organisation d'actions citoyennes et de projets dédiés aux jeunes.",
     featured: true
@@ -49,7 +49,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/aps.png",
     site: "",
     type: "ong",
-    depuis: "2018",
+    depuis: "2022",
     domaines: ["Santé communautaire", "Sensibilisation", "Prévention"],
     description: "Organisation engagée pour la santé communautaire, APS Bénin soutient les campagnes de sensibilisation et de prévention menées par la JCI Comé Excellence.",
     featured: true
@@ -59,7 +59,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/radio-aheme.png",
     site: "",
     type: "media",
-    depuis: "2016",
+    depuis: "2022",
     domaines: ["Communication", "Sensibilisation", "Couverture médiatique"],
     description: "Média de proximité, Radio FM Ahémé 87.7 valorise les actions de la JCI Comé Excellence auprès des populations du Mono.",
 
@@ -69,7 +69,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/digisaim.png",
     site: "",
     type: "entreprise",
-    depuis: "2021",
+    depuis: "2022",
     domaines: ["Numérique", "Formation", "Communication digitale"],
     description: "Agence spécialisée dans le numérique, DigiSaim accompagne la JCI Comé Excellence dans sa communication digitale et ses projets d'innovation.",
 
@@ -79,7 +79,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/gasa.png",
     site: "",
     type: "education",
-    depuis: "2020",
+    depuis: "2017",
     domaines: ["Art", "Culture", "Jeunesse"],
     description: "Association culturelle engagée, GASA favorise l'expression artistique et l'épanouissement des jeunes à travers des initiatives communes."
   },
@@ -88,7 +88,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/karo.png",
     site: "",
     type: "education",
-    depuis: "2019",
+    depuis: "2018",
     domaines: ["Culture", "Formation", "Échanges internationaux"],
     description: "Centre culturel de référence, Villa Karo encourage les échanges culturels et enrichit les projets artistiques et éducatifs de la JCI Comé Excellence."
   },
@@ -97,7 +97,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/providence.png",
     site: "",
     type: "entreprise",
-    depuis: "2022",
+    depuis: "2024",
     domaines: ["Santé", "Logistique", "Événementiel"],
     description: "Entreprise de services, Providence HD apporte son expertise logistique et son accompagnement lors des actions communautaires de la JCI Comé Excellence."
   },
@@ -115,7 +115,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/smhat.png",
     site: "",
     type: "institutionnel",
-    depuis: "2017",
+    depuis: "2025",
     domaines: ["Gouvernance locale", "Citoyenneté", "Développement"],
     description: "Acteur du développement local, le CCMA Nonvizohwé accompagne les initiatives citoyennes et renforce les collaborations institutionnelles."
   },
@@ -124,7 +124,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/ta_studio.png",
     site: "",
     type: "media",
-    depuis: "2022",
+    depuis: "2024",
     domaines: ["Photo", "Vidéo", "Communication visuelle"],
     description: "Studio de création audiovisuelle, TA Studio met en valeur les projets et les événements de la JCI Comé Excellence à travers l'image."
   },
@@ -133,7 +133,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/via_me.png",
     site: "",
     type: "ong",
-    depuis: "2020",
+    depuis: "2024",
     domaines: ["Entrepreneuriat", "Jeunesse", "Mentorat"],
     description: "Organisation dédiée à l'entrepreneuriat, VIA-ME accompagne les jeunes dans le développement de leurs compétences et de leurs projets."
   },
@@ -142,7 +142,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/caad.png",
     site: "",
     type: "ong",
-    depuis: "2019",
+    depuis: "2023",
     domaines: ["Développement", "Formation", "Solidarité"],
     description: "Organisation engagée pour le développement et la solidarité, le CAAD soutient les actions de formation et les projets à impact communautaire."
   },
@@ -151,7 +151,7 @@ const PARTENAIRES_DATA = [
     logo: "assets/images/partenaires/gimono.png",
     site: "",
     type: "institutionnel",
-    depuis: "2016",
+    depuis: "2017",
     domaines: ["Économie locale", "Emploi", "Formation professionnelle"],
     description: "Acteur du développement économique local, GI Mono favorise les collaborations entre la JCI Comé Excellence et les entreprises du département."
   }

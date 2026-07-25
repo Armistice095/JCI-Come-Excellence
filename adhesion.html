@@ -379,7 +379,6 @@
               <p class="text-sm text-ardoise/55 mb-7"> Ces informations nous permettent de mieux vous connaître et d'assurer le suivi de votre candidature. Les champs marqués d'un <span class="text-azur">*</span> sont obligatoires.</p>
 
               <div class="space-y-5">
-                <!-- Email Google (masqué visuellement, info) -->
                 <div class="bg-azur/6 border border-azur/20 rounded-xl px-4 py-3 flex items-start gap-3">
                   <svg class="flex-shrink-0 mt-0.5" width="15" height="15" viewBox="0 0 24 24" fill="none"
                     stroke="#1E96FC" stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -392,7 +391,7 @@
                 <div class="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label for="adh-nom" class="field-label">Nom <span class="field-req">*</span></label>
-                    <input id="adh-nom" type="text" autocomplete="family-name" placeholder="Ex. : HOUNKANRIN"
+                    <input id="adh-nom" name="nom" type="text" autocomplete="family-name" placeholder="Ex. : HOUNKANRIN"
                       class="form-field" required aria-required="true" />
                     <span class="field-error" id="err-nom"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -402,7 +401,7 @@
                   </div>
                   <div>
                     <label for="adh-prenom" class="field-label">Prénoms <span class="field-req">*</span></label>
-                    <input id="adh-prenom" type="text" autocomplete="given-name" placeholder="Ex. : Méthode"
+                    <input id="adh-prenom" name="prenom" type="text" autocomplete="given-name" placeholder="Ex. : Méthode"
                       class="form-field" required aria-required="true" />
                     <span class="field-error" id="err-prenom"><svg width="11" height="11" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -429,7 +428,7 @@
                   <div>
                     <label for="adh-situation" class="field-label">Situation matrimoniale <span
                         class="field-req">*</span></label>
-                    <select id="adh-situation" class="form-field" required aria-required="true">
+                    <select id="adh-situation" name="situation" class="form-field" required aria-required="true">
                       <option value="">— Sélectionner —</option>
                       <option value="Célibataire">Célibataire</option>
                       <option value="Marié(e)">Marié(e)</option>
@@ -446,7 +445,7 @@
                 <div>
                   <label for="adh-naissance" class="field-label">Date et lieu de naissance <span
                       class="field-req">*</span></label>
-                  <input id="adh-naissance" type="text" placeholder="Ex. : 12/05/1997, Comé" class="form-field" required
+                  <input id="adh-naissance" name="naissance" type="text" placeholder="Ex. : 12/05/1997, Comé" class="form-field" required
                     aria-required="true" />
                   <span class="field-error" id="err-naissance"><svg width="11" height="11" viewBox="0 0 24 24"
                       fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -459,7 +458,7 @@
                   <div>
                     <label for="adh-profession" class="field-label">Profession ou occupation actuelle <span
                         class="field-req">*</span></label>
-                    <input id="adh-profession" type="text" placeholder="Ex. : Ingénieur, Étudiant…" class="form-field"
+                    <input id="adh-profession" name="profession" type="text" placeholder="Ex. : Ingénieur, Étudiant…" class="form-field"
                       required aria-required="true" />
                     <span class="field-error" id="err-profession"><svg width="11" height="11" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -470,7 +469,7 @@
                   <div>
                     <label for="adh-residence" class="field-label">Lieu de résidence <span
                         class="field-req">*</span></label>
-                    <input id="adh-residence" type="text" placeholder="Ex. : Comé, quartier Kpodji" class="form-field"
+                    <input id="adh-residence" name="residence" type="text" placeholder="Ex. : Comé, quartier Kpodji" class="form-field"
                       required aria-required="true" />
                     <span class="field-error" id="err-residence"><svg width="11" height="11" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -484,7 +483,7 @@
                   <div>
                     <label for="adh-whatsapp" class="field-label">Numéro WhatsApp <span
                         class="field-req">*</span></label>
-                    <input id="adh-whatsapp" type="tel" autocomplete="tel" placeholder="+229 00 00 00 00"
+                    <input id="adh-whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="+229 00 00 00 00"
                       class="form-field" required aria-required="true" />
                     <span class="field-error" id="err-whatsapp"><svg width="11" height="11" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -494,7 +493,7 @@
                   </div>
                   <div>
                     <label for="adh-email" class="field-label">Adresse email <span class="field-req">*</span></label>
-                    <input id="adh-email" type="email" autocomplete="email" placeholder="vous@example.com"
+                    <input id="adh-email" name="email" type="email" autocomplete="email" placeholder="vous@example.com"
                       class="form-field" required aria-required="true" />
                     <span class="field-error" id="err-email"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -538,7 +537,7 @@
                       <input type="radio" name="decouverte" value="Autre" id="radio-decouverte-autre" />
                       <span>Autre</span>
                     </label>
-                    <input type="text" id="input-decouverte-autre" placeholder="Précisez…"
+                    <input type="text" id="input-decouverte-autre" name="decouverte_autre" placeholder="Précisez…"
                       class="form-field opt-other-input cond-section" />
                   </div>
                 </div>
@@ -546,7 +545,7 @@
                 <!-- Conditionnel : nom de l'ami -->
                 <div class="cond-section" id="cond-ami">
                   <label for="adh-ami" class="field-label">Nom et prénom de cet(te) ami(e)</label>
-                  <input id="adh-ami" type="text" placeholder="Ex. : Fiacre ADJOVI" class="form-field" />
+                  <input id="adh-ami" name="ami" type="text" placeholder="Ex. : Fiacre ADJOVI" class="form-field" />
                 </div>
               </div>
 
@@ -579,7 +578,7 @@
               <div class="space-y-6">
                 <div>
                   <label for="adh-motivation" class="field-label">Pourquoi souhaitez-vous rejoindre JCI Comé Excellence ?<span class="field-req">*</span></label>
-                  <textarea id="adh-motivation" placeholder="Décrivez vos motivations, vos objectifs personnels ou professionnels et ce que vous espérez accomplir grâce à votre engagement." class="form-field" required
+                  <textarea id="adh-motivation" name="motivation" placeholder="Décrivez vos motivations, vos objectifs personnels ou professionnels et ce que vous espérez accomplir grâce à votre engagement." class="form-field" required
                     aria-required="true"></textarea>
                   <span class="field-error" id="err-motivation"><svg width="11" height="11" viewBox="0 0 24 24"
                       fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -606,7 +605,7 @@
                       <input type="checkbox" name="attentes" value="Autres" id="cb-attentes-autre" />
                       <span>Autres</span>
                     </label>
-                    <input type="text" id="input-attentes-autre" placeholder="Précisez vos autres attentes…"
+                    <input type="text" id="input-attentes-autre" name="attentes_autre" placeholder="Précisez vos autres attentes…"
                       class="form-field opt-other-input cond-section" />
                   </div>
                   <span class="field-error" id="err-attentes"><svg width="11" height="11" viewBox="0 0 24 24"
@@ -680,7 +679,7 @@
                           <input type="radio" name="type_asso" value="Autres" id="radio-type-asso-autre" />
                           <span>Autres</span>
                         </label>
-                        <input type="text" id="input-type-asso-autre" placeholder="Précisez…"
+                        <input type="text" id="input-type-asso-autre" name="type_asso_autre" placeholder="Précisez…"
                           class="form-field opt-other-input cond-section" />
                       </div>
                     </div>
@@ -699,7 +698,7 @@
                           <input type="radio" name="responsabilite" value="Autres" id="radio-resp-autre" />
                           <span>Autres</span>
                         </label>
-                        <input type="text" id="input-resp-autre" placeholder="Précisez votre rôle…"
+                        <input type="text" id="input-resp-autre" name="responsabilite_autre" placeholder="Précisez votre rôle…"
                           class="form-field opt-other-input cond-section" />
                         <label class="opt-row"><input type="radio" name="responsabilite" value="Aucune" /><span>Aucune
                             responsabilité</span></label>

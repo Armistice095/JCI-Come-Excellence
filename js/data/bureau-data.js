@@ -114,8 +114,8 @@ const BUREAU_DATA = [
     id: "nicaise-houngbedjro",
     prenom: "Nicaise",
     nom: "HOUNGBEDJRO",
-    role: "Dir. Cabinet Présidentiel — Efficacité & Récompenses",
-    roleShort: "Dir. Cabinet",
+    role: "Directeur Cabinet Présidentiel — Efficacité & Récompenses",
+    roleShort: "Directeur Cabinet",
     classe: "membre",
     niveau: 4,
     photo: "assets/images/bureau/nicaise-houngbedjro.jpg"
@@ -145,7 +145,7 @@ const BUREAU_DATA = [
     prenom: "Fortuné",
     nom: "DANSOU-LADJI",
     role: "Directeur de l'Entrepreneuriat",
-    roleShort: "Dir. Entrepreneuriat",
+    roleShort: "Directeur Entrepreneuriat",
     classe: "membre",
     niveau: 4,
     photo: "assets/images/bureau/fortune-dansou-ladji.jpg"
