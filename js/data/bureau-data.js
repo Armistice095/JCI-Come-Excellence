@@ -159,7 +159,7 @@ const BUREAU_DATA = [
 const PASTS_DATA = [
   { annee: 2013, prenom: "Maurice",        nom: "TOSSOU",    theme: "L'engagement change le monde", photo: "assets/images/pasts/maurice-tossou.jpg" },
   { annee: 2014, prenom: "Abraham",        nom: "KAKPO",     theme: "Toujours engagé pour une OL plus forte", photo: "assets/images/pasts/abraham-kakpo.jpg" },
-  { annee: 2015, prenom: "Carole",         nom: "CODJO",     theme: "Impactons par l'action", photo: "assets/images/pasts/carole-codjo.jpg" },
+  { annee: 2015, prenom: "Carole",         nom: "GODJO",     theme: "Impactons par l'action", photo: "assets/images/pasts/carole-codjo.jpg" },
   { annee: 2016, prenom: "Apollinaire",    nom: "SAGBO",     theme: "Vivons l'impact", photo: "assets/images/pasts/apollinaire-sagbo.jpg" },
   { annee: 2017, prenom: "Parfait",        nom: "GBOGBE",    theme: "Excellons dans l'impact", photo: "assets/images/pasts/parfait-gbogbe.jpg" },
   { annee: 2018, prenom: "Richard",        nom: "TANDJOMA",  theme: "Excellence mon impact", photo: "assets/images/pasts/richard-tandjoma.jpg" },
