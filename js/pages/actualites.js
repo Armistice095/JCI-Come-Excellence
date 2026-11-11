@@ -117,7 +117,7 @@ function renderFeaturedActualite(art) {
             '</div>'
           : '') +
         '</div>' +
-        '<a href="article.html?id=' + art.id + '" class="btn-primary w-fit mt-2 inline-flex items-center gap-2">Lire l\u2019article complet</a>' +
+        '<a href="/actualites/' + art.id + '" class="btn-primary w-fit mt-2 inline-flex items-center gap-2">Lire l\u2019article complet</a>' +
       '</div>' +
     '</article>';
 }
@@ -172,7 +172,7 @@ function buildActCard(art, index) {
   var photoCount = art.gallery && art.gallery.photos ? art.gallery.photos.length : 0;
 
   var card = document.createElement("a");
-  card.href = "article.html?id=" + art.id;
+  card.href = "/actualites/" + art.id;
   card.className = "act-card group bg-white rounded-2xl border border-ardoise/10 overflow-hidden shadow-card hover:-translate-y-1 hover:shadow-xl transition-all duration-300 block";
   card.dataset.categorie = art.categorie;
   card.style.transitionDelay = delay + "ms";

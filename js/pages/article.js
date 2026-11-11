@@ -62,6 +62,7 @@
   }
 
   function getParam(name) {
+    if (name === "id" && window.ARTICLE_ID) return window.ARTICLE_ID;
     return new URLSearchParams(window.location.search).get(name);
   }
 
@@ -144,6 +145,52 @@
     if (el) el.classList.toggle("hidden", !visible);
   }
 
+  function setMeta(selector, attr, value) {
+    var el = document.querySelector(selector);
+    if (el) el.setAttribute(attr, value);
+  }
+
+  function updateSeo(article, image) {
+    var origin = "https://jcicomee.org";
+    var url = origin + "/actualites/" + encodeURIComponent(article.id);
+    var desc = article.extrait || article.chapeau || article.titre;
+    var title = article.titre + " - JCI Comé Excellence";
+    var img = image ? origin + "/" + String(image).replace(/^\//, "") : "";
+
+    setMeta('link[rel="canonical"]', "href", url);
+    setMeta('meta[property="og:url"]', "content", url);
+    setMeta('meta[property="og:title"]', "content", title);
+    setMeta('meta[property="og:description"]', "content", desc);
+    setMeta('meta[name="twitter:title"]', "content", title);
+    setMeta('meta[name="twitter:description"]', "content", desc);
+    if (img) {
+      setMeta('meta[property="og:image"]', "content", img);
+      setMeta('meta[name="twitter:image"]', "content", img);
+    }
+
+    if (document.getElementById("ld-article")) return; // déjà généré au build
+    var ld = document.createElement("script");
+    ld.id = "ld-article";
+    ld.type = "application/ld+json";
+    ld.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.titre,
+      description: desc,
+      image: img ? [img] : undefined,
+      datePublished: article.dateISO,
+      inLanguage: "fr",
+      mainEntityOfPage: url,
+      author: { "@type": "Organization", name: "JCI Comé Excellence" },
+      publisher: {
+        "@type": "Organization",
+        name: "JCI Comé Excellence",
+        logo: { "@type": "ImageObject", url: origin + "/assets/images/logo/logo-jci-come-optimized.png" }
+      }
+    });
+    document.head.appendChild(ld);
+  }
+
   function renderHero(article) {
     var token = getToken(article.categorie);
     var author = getAuthor(article);
@@ -155,6 +202,7 @@
 
     var description = document.querySelector('meta[name="description"]');
     if (description) description.setAttribute("content", article.extrait || article.chapeau || article.titre);
+    updateSeo(article, image);
 
     if (heroImg) {
       heroImg.src = image || "";
@@ -340,7 +388,7 @@
 
   function articleCard(article) {
     var image = article.image || (article.gallery && article.gallery.cover);
-    return '<a href="article.html?id=' + encodeURIComponent(article.id) + '" class="group block overflow-hidden rounded-xl border border-ardoise/10 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">' +
+    return '<a href="/actualites/' + encodeURIComponent(article.id) + '" class="group block overflow-hidden rounded-xl border border-ardoise/10 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">' +
       '<div class="js-image-wrap relative h-36 overflow-hidden bg-ardoise/10">' +
         (image ? imageHTML(image, "", "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105") : "") +
         '<div class="absolute inset-0 bg-gradient-to-t from-marine/45 to-transparent"></div>' +
@@ -392,7 +440,7 @@
 
     function navCard(item, label, alignRight) {
       if (!item) return '<div class="hidden sm:block"></div>';
-      return '<a href="article.html?id=' + encodeURIComponent(item.id) + '" class="group rounded-xl border border-ardoise/10 bg-fondclair p-5 transition-all hover:bg-white hover:shadow-card">' +
+      return '<a href="/actualites/' + encodeURIComponent(item.id) + '" class="group rounded-xl border border-ardoise/10 bg-fondclair p-5 transition-all hover:bg-white hover:shadow-card">' +
         '<p class="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-ardoise/40 ' + (alignRight ? "justify-end" : "") + '">' +
           (alignRight ? escapeHTML(label) + " " + ICONS.arrow : ICONS.arrowLeft + " " + escapeHTML(label)) +
         '</p>' +
@@ -537,6 +585,8 @@
   }
 
   function showNotFound() {
+    var robots = document.querySelector('meta[name="robots"]');
+    if (robots) robots.setAttribute("content", "noindex, follow");
     setVisible("art-loading", false);
     setVisible("art-not-found", true);
     document.querySelectorAll("main > :not(#art-loading):not(#art-not-found)").forEach(function (section) {

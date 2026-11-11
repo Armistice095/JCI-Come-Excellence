@@ -135,3 +135,19 @@ Avant chaque mise en ligne, il est conseillé de vérifier :
 
 Projet réalisé pour JCI Comé Excellence.
 
+
+## Déploiement Cloudflare et SEO
+
+Le site est servi par un Worker Cloudflare (`wrangler.jsonc`, nom : `jci-come-excellence-site-web`) sur `https://jcicomee.org`.
+
+```
+npm run build     # compile Tailwind, génère dist/, sitemap.xml et une page statique par article
+npm run preview   # build + serveur local Cloudflare (wrangler dev)
+npm run deploy    # build + publication
+npm run serve     # build + aperçu rapide de dist/
+```
+
+- Chaque article de `js/data/actualites-data.js` devient `dist/actualites/<id>.html` (URL publique : `/actualites/<id>`), avec title, description, canonical, Open Graph et JSON-LD intégrés au HTML.
+- `sitemap.xml` est régénéré à chaque build à partir des pages et des articles. `robots.txt` le référence.
+- `article.html` sert de modèle ; sa copie dans `dist/` est en `noindex`.
+- Pour ajouter un article : ajouter l'objet dans `actualites-data.js`, puis `npm run build` (ou pousser sur GitHub si le déploiement automatique est activé).

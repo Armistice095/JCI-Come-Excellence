@@ -165,7 +165,7 @@ function renderNewsCard(n, index) {
         '<p class="text-sm text-ardoise/75 leading-relaxed mb-4 flex-1">' + n.extrait + '</p>' +
         '<div class="flex items-center justify-between pt-4 border-t border-ardoise/10 gap-3">' +
           '<span class="text-[0.7rem] font-mono text-ardoise/60 flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">' + metaBits.join("") + '</span>' +
-          '<a href="article.html?id=' + n.id + '" class="inline-flex items-center gap-1 text-sm font-semibold text-azur-dark flex-shrink-0 transition-all group-hover:gap-2">Lire ' + cardIcon("arrow-right", 14) + '</a>' +
+          '<a href="/actualites/' + n.id + '" class="inline-flex items-center gap-1 text-sm font-semibold text-azur-dark flex-shrink-0 transition-all group-hover:gap-2">Lire ' + cardIcon("arrow-right", 14) + '</a>' +
         '</div>' +
       '</div>' +
     '</article>'
