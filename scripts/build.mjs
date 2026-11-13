@@ -21,7 +21,9 @@ for (const f of readdirSync(".")) {
 for (const f of ["robots.txt", "site.webmanifest", "_headers"]) {
   if (existsSync(f)) cpSync(f, `${DIST}/${f}`);
 }
-for (const d of ["assets", "css", "js"]) cpSync(d, `${DIST}/${d}`, { recursive: true });
+for (const d of ["assets", "css", "js", "apps"]) {
+  if (existsSync(d)) cpSync(d, `${DIST}/${d}`, { recursive: true });
+}
 rmSync(`${DIST}/css/tailwind-input.css`, { force: true });
 
 // 3) sitemap.xml
@@ -41,6 +43,9 @@ const pages = [
   { file: "partenaires.html", path: "/partenaires", priority: "0.6", freq: "monthly" },
   { file: "adhesion.html", path: "/adhesion", priority: "0.7", freq: "monthly" },
   { file: "contact.html", path: "/contact", priority: "0.7", freq: "yearly" },
+  ...(existsSync("apps/jci-stafs.html")
+    ? [{ file: "apps/jci-stafs.html", path: "/apps/jci-stafs", priority: "0.5", freq: "monthly" }]
+    : []),
 ];
 
 const ctx = {};
